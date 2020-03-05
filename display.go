@@ -31,13 +31,11 @@ func Display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 
 	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
 	db, err := gorm.Open(dialect, connectionString)
-
+	defer db.Close()
 	if err != nil {
 		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
 	}
-	defer db.Close()
 	db.Order("Name asc").Find(&workplaces)
-
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)
 		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}
@@ -52,16 +50,13 @@ func Display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	tmpl := template.Must(template.ParseFiles("html/display_2.html"))
 	var workplaces []zapsi_database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
-
 	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
 	db, err := gorm.Open(dialect, connectionString)
-
+	defer db.Close()
 	if err != nil {
 		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
 	}
-	defer db.Close()
 	db.Order("Name asc").Find(&workplaces)
-
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)
 		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}

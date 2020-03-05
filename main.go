@@ -96,11 +96,10 @@ func WriteProgramVersionIntoSettings() {
 func StreamOverview(streamer *sse.Streamer) {
 	var workplaces []zapsi_database.Workplace
 	for {
-		LogInfo("MAIN", "Streaming overview")
-		workplaces = nil
 		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
 		db, err := gorm.Open(dialect, connectionString)
-		defer db.Close()
+		LogInfo("MAIN", "Streaming overview")
+		workplaces = nil
 		if err != nil {
 			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
 			time.Sleep(10 * time.Second)
@@ -143,6 +142,7 @@ func StreamOverview(streamer *sse.Streamer) {
 		}
 		LogInfo("MAIN", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
+		db.Close()
 		time.Sleep(10 * time.Second)
 	}
 }
@@ -150,11 +150,10 @@ func StreamOverview(streamer *sse.Streamer) {
 func StreamWorkplaces(streamer *sse.Streamer) {
 	var workplaces []zapsi_database.Workplace
 	for {
-		LogInfo("MAIN", "Streaming workplaces")
-		workplaces = nil
 		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
 		db, err := gorm.Open(dialect, connectionString)
-		defer db.Close()
+		LogInfo("MAIN", "Streaming workplaces")
+		workplaces = nil
 		if err != nil {
 			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
 			time.Sleep(10 * time.Second)
@@ -201,6 +200,7 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			LogInfo(workplace.Name, "Data streamed")
 		}
 		LogInfo("MAIN", "Workplaces streamed, waiting 10 second for another run")
+		db.Close()
 		time.Sleep(10 * time.Second)
 	}
 }

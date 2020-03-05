@@ -571,3 +571,21 @@
 2020-03-05 13:52:22.274   CNC 2   INF   Workplace color: orange, order: Internal, downtime: , user:  
 2020-03-05 13:52:22.274   CNC 2   INF   Streaming data to LCD
 2020-03-05 13:52:22.274   CNC 2   INF   Data streamed
+2020-03-05 14:14:09.453   CNC 2   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-05 14:14:09.453   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:14:09.453   CNC 2   INF   Data streamed
+2020-03-05 14:14:19.637   CNC 2   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-05 14:14:19.637   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:14:19.638   CNC 2   INF   Data streamed
+2020-03-05 14:19:38.036   CNC 2   INF   Workplace color: red, order: , downtime: , user: 
+2020-03-05 14:19:38.036   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:19:38.036   CNC 2   INF   Data streamed
+2020-03-05 14:20:01.879   CNC 2   INF   Workplace color: red, order: , downtime: , user: 
+2020-03-05 14:20:01.879   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:20:01.879   CNC 2   INF   Data streamed
+2020-03-05 14:20:12.139   CNC 2   INF   Workplace color: red, order: , downtime: , user: 
+2020-03-05 14:20:12.139   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:20:12.139   CNC 2   INF   Data streamed
+2020-03-05 14:20:22.386   CNC 2   INF   Workplace color: red, order: , downtime: , user: 
+2020-03-05 14:20:22.386   CNC 2   INF   Streaming data to LCD
+2020-03-05 14:20:22.386   CNC 2   INF   Data streamed

@@ -2027,3 +2027,147 @@
 2020-03-05 13:52:28.417   MAIN   INF   Production: 10, Downtime: 4, Offline: 6
 2020-03-05 13:52:28.417   MAIN   INF   Production: 50, Downtime: 20, Offline: 30
 2020-03-05 13:52:30.314   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:14:08.978   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:14:08.980   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:14:08.981   MAIN   INF   Updating program version in database
+2020-03-05 14:14:09.176   MAIN   INF   Program version updated, elapsed: 195.190644ms
+2020-03-05 14:14:09.176   MAIN   INF   Server running
+2020-03-05 14:14:09.176   MAIN   INF   Streaming workplaces
+2020-03-05 14:14:09.176   MAIN   INF   Streaming overview
+2020-03-05 14:14:09.197   MAIN   INF   Workplaces count: 20
+2020-03-05 14:14:09.259   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:14:09.259   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:14:09.466   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:14:19.262   MAIN   INF   Streaming overview
+2020-03-05 14:14:19.309   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:14:19.309   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:14:19.469   MAIN   INF   Streaming workplaces
+2020-03-05 14:14:19.482   MAIN   INF   Workplaces count: 20
+2020-03-05 14:14:19.647   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:14:24.040   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:14:49.327   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:14:49.328   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:14:49.328   MAIN   INF   Updating program version in database
+2020-03-05 14:14:49.342   MAIN   INF   Program version updated, elapsed: 13.611297ms
+2020-03-05 14:14:49.342   MAIN   INF   Server running
+2020-03-05 14:14:49.342   MAIN   INF   Streaming overview
+2020-03-05 14:14:49.391   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:14:49.391   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:14:59.392   MAIN   INF   Streaming overview
+2020-03-05 14:14:59.445   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:14:59.445   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:15:09.447   MAIN   INF   Streaming overview
+2020-03-05 14:15:09.499   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:15:09.499   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:15:12.706   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:15:23.938   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:15:23.938   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:15:23.939   MAIN   INF   Updating program version in database
+2020-03-05 14:15:23.959   MAIN   INF   Program version updated, elapsed: 20.668028ms
+2020-03-05 14:15:23.960   MAIN   INF   Server running
+2020-03-05 14:15:23.965   MAIN   INF   Streaming overview
+2020-03-05 14:15:24.004   MAIN   INF   Production: 14, Downtime: 5, Offline: 1
+2020-03-05 14:15:24.004   MAIN   INF   Production: 70, Downtime: 25, Offline: 5
+2020-03-05 14:15:34.005   MAIN   INF   Streaming overview
+2020-03-05 14:15:34.050   MAIN   INF   Production: 15, Downtime: 4, Offline: 1
+2020-03-05 14:15:34.050   MAIN   INF   Production: 75, Downtime: 20, Offline: 5
+2020-03-05 14:15:44.054   MAIN   INF   Streaming overview
+2020-03-05 14:15:44.104   MAIN   INF   Production: 15, Downtime: 4, Offline: 1
+2020-03-05 14:15:44.104   MAIN   INF   Production: 75, Downtime: 20, Offline: 5
+2020-03-05 14:15:54.106   MAIN   INF   Streaming overview
+2020-03-05 14:15:54.172   MAIN   INF   Production: 15, Downtime: 4, Offline: 1
+2020-03-05 14:15:54.172   MAIN   INF   Production: 75, Downtime: 20, Offline: 5
+2020-03-05 14:16:04.177   MAIN   INF   Streaming overview
+2020-03-05 14:16:04.271   MAIN   INF   Production: 15, Downtime: 4, Offline: 1
+2020-03-05 14:16:04.272   MAIN   INF   Production: 75, Downtime: 20, Offline: 5
+2020-03-05 14:16:14.272   MAIN   INF   Streaming overview
+2020-03-05 14:16:14.308   MAIN   INF   Production: 15, Downtime: 4, Offline: 1
+2020-03-05 14:16:14.308   MAIN   INF   Production: 75, Downtime: 20, Offline: 5
+2020-03-05 14:16:14.978   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:16:32.773   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:16:32.774   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:16:32.774   MAIN   INF   Updating program version in database
+2020-03-05 14:16:32.787   MAIN   INF   Program version updated, elapsed: 12.625815ms
+2020-03-05 14:16:32.787   MAIN   INF   Server running
+2020-03-05 14:16:49.491   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:16:51.264   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:16:51.264   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:16:51.265   MAIN   INF   Updating program version in database
+2020-03-05 14:16:51.295   MAIN   INF   Program version updated, elapsed: 30.54311ms
+2020-03-05 14:16:51.295   MAIN   INF   Server running
+2020-03-05 14:16:51.302   MAIN   INF   Streaming overview
+2020-03-05 14:16:51.353   MAIN   INF   Production: 14, Downtime: 4, Offline: 2
+2020-03-05 14:16:51.353   MAIN   INF   Production: 70, Downtime: 20, Offline: 10
+2020-03-05 14:17:01.358   MAIN   INF   Streaming overview
+2020-03-05 14:17:01.407   MAIN   INF   Production: 14, Downtime: 4, Offline: 2
+2020-03-05 14:17:01.407   MAIN   INF   Production: 70, Downtime: 20, Offline: 10
+2020-03-05 14:17:08.482   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:17:28.099   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:17:28.099   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:17:28.099   MAIN   INF   Updating program version in database
+2020-03-05 14:17:28.115   MAIN   INF   Program version updated, elapsed: 15.803685ms
+2020-03-05 14:17:28.115   MAIN   INF   Server running
+2020-03-05 14:17:28.122   MAIN   INF   Streaming overview
+2020-03-05 14:17:28.253   MAIN   INF   Production: 14, Downtime: 4, Offline: 2
+2020-03-05 14:17:28.253   MAIN   INF   Production: 70, Downtime: 20, Offline: 10
+2020-03-05 14:17:38.423   MAIN   INF   Streaming overview
+2020-03-05 14:17:38.660   MAIN   INF   Production: 14, Downtime: 4, Offline: 2
+2020-03-05 14:17:38.660   MAIN   INF   Production: 70, Downtime: 20, Offline: 10
+2020-03-05 14:17:47.256   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:18:51.300   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:18:51.300   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:18:51.301   MAIN   INF   Updating program version in database
+2020-03-05 14:18:51.314   MAIN   INF   Program version updated, elapsed: 12.871631ms
+2020-03-05 14:18:51.314   MAIN   INF   Server running
+2020-03-05 14:18:51.319   MAIN   INF   Streaming overview
+2020-03-05 14:18:51.354   MAIN   INF   Production: 10, Downtime: 6, Offline: 4
+2020-03-05 14:18:51.355   MAIN   INF   Production: 50, Downtime: 30, Offline: 20
+2020-03-05 14:19:01.365   MAIN   INF   Streaming overview
+2020-03-05 14:19:01.399   MAIN   INF   Production: 10, Downtime: 6, Offline: 4
+2020-03-05 14:19:01.399   MAIN   INF   Production: 50, Downtime: 30, Offline: 20
+2020-03-05 14:19:11.408   MAIN   INF   Streaming overview
+2020-03-05 14:19:11.442   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:19:11.442   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:19:15.100   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:19:37.797   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:19:37.797   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:19:37.797   MAIN   INF   Updating program version in database
+2020-03-05 14:19:37.813   MAIN   INF   Program version updated, elapsed: 15.160333ms
+2020-03-05 14:19:37.813   MAIN   INF   Server running
+2020-03-05 14:19:37.818   MAIN   INF   Streaming workplaces
+2020-03-05 14:19:37.820   MAIN   INF   Workplaces count: 20
+2020-03-05 14:19:37.821   MAIN   INF   Streaming overview
+2020-03-05 14:19:37.868   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:19:37.869   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:19:38.084   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:19:47.882   MAIN   INF   Streaming overview
+2020-03-05 14:19:47.927   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:19:47.927   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:19:48.085   MAIN   INF   Streaming workplaces
+2020-03-05 14:19:48.086   MAIN   INF   Workplaces count: 0
+2020-03-05 14:19:48.086   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:19:49.468   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:20:01.612   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:20:01.612   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:20:01.613   MAIN   INF   Updating program version in database
+2020-03-05 14:20:01.627   MAIN   INF   Program version updated, elapsed: 13.875681ms
+2020-03-05 14:20:01.627   MAIN   INF   Server running
+2020-03-05 14:20:01.633   MAIN   INF   Streaming overview
+2020-03-05 14:20:01.634   MAIN   INF   Streaming workplaces
+2020-03-05 14:20:01.637   MAIN   INF   Workplaces count: 20
+2020-03-05 14:20:01.676   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:20:01.676   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:20:01.939   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:20:11.689   MAIN   INF   Streaming overview
+2020-03-05 14:20:11.728   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:20:11.728   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:20:11.951   MAIN   INF   Streaming workplaces
+2020-03-05 14:20:11.953   MAIN   INF   Workplaces count: 20
+2020-03-05 14:20:12.200   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:20:21.741   MAIN   INF   Streaming overview
+2020-03-05 14:20:21.780   MAIN   INF   Production: 9, Downtime: 6, Offline: 5
+2020-03-05 14:20:21.780   MAIN   INF   Production: 45, Downtime: 30, Offline: 25
+2020-03-05 14:20:22.214   MAIN   INF   Streaming workplaces
+2020-03-05 14:20:22.216   MAIN   INF   Workplaces count: 20
+2020-03-05 14:20:22.423   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:20:26.184   MAIN   INF   Stopped on platform darwin-launchd
