@@ -15,10 +15,9 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 * ```Security``` in case of vulnerabilities.
 
 
-## [2020.1.2.29] - 2020-02-29
+## [2020.1.3.5] - 2020-03-05
 
-### Changed
-- name of database changed to zapsi3
-- proper testing for mariadb, postgres and mssql
-- added logging for all important methods and functions
-- code refactoring for better readability
+### Added
+- webservice running on port 81
+- /display_1 shows all workplaces with their status in small tiles
+- /display_2 shows all workplaces with their status in wide tiles

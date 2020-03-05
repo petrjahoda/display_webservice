@@ -1,11 +1,15 @@
 package main
 
 import (
+	"github.com/davidscholberg/go-durationfmt"
+	"github.com/goodsign/monday"
 	"github.com/jinzhu/gorm"
+	"github.com/julienschmidt/httprouter"
+	"github.com/julienschmidt/sse"
 	"github.com/kardianos/service"
 	"github.com/petrjahoda/zapsi_database"
+	"net/http"
 	"strconv"
-	"sync"
 	"time"
 )
 
@@ -13,61 +17,46 @@ const version = "2020.1.3.5"
 const programName = "Display WebService"
 const programDesription = "Display webpages, for use with big televisions and displays"
 const deleteLogsAfter = 240 * time.Hour
-const downloadInSeconds = 10
-
-var serviceRunning = false
 
 type program struct{}
 
 func (p *program) Start(s service.Service) error {
 	LogInfo("MAIN", "Starting "+programName+" on "+s.Platform())
 	go p.run()
-	serviceRunning = true
 	return nil
 }
 
 func (p *program) run() {
-	time.Sleep(time.Second * 5)
 	LogDirectoryFileCheck("MAIN")
 	LogInfo("MAIN", programName+" version "+version+" started")
 	CreateConfigIfNotExists()
 	LoadSettingsFromConfigFile()
 	LogDebug("MAIN", "Using ["+DatabaseType+"] on "+DatabaseIpAddress+":"+DatabasePort+" with database "+DatabaseName)
 	WriteProgramVersionIntoSettings()
-	for {
-		LogInfo("MAIN", "Program running")
-		start := time.Now()
-		UpdateActiveWorkplaces("MAIN")
-		DeleteOldLogFiles()
-		LogInfo("MAIN", "Active workplaces: "+strconv.Itoa(len(activeWorkplaces))+", running workplaces: "+strconv.Itoa(len(runningWorkplaces)))
-		for _, activeWorkplace := range activeWorkplaces {
-			activeWorkplaceIsRunning := CheckWorkplace(activeWorkplace)
-			if !activeWorkplaceIsRunning {
-				go RunWorkplace(activeWorkplace)
-			}
-		}
-		if time.Since(start) < (downloadInSeconds * time.Second) {
-			sleepTime := downloadInSeconds*time.Second - time.Since(start)
-			LogInfo("MAIN", "Sleeping for "+sleepTime.String())
-			time.Sleep(sleepTime)
-		}
-	}
+	router := httprouter.New()
+	now := sse.New()
+	workplaces := sse.New()
+	overview := sse.New()
+
+	router.GET("/display_1", Display1)
+	router.GET("/display_2", Display2)
+	router.GET("/css/darcula.css", darcula)
+	router.GET("/js/metro.min.js", metrojs)
+	router.GET("/css/metro-all.css", metrocss)
+
+	router.Handler("GET", "/now", now)
+	router.Handler("GET", "/workplaces", workplaces)
+	router.Handler("GET", "/overview", overview)
+	go StreamTime(now)
+	go StreamWorkplaces(workplaces)
+	go StreamOverview(overview)
+	LogInfo("MAIN", "Server running")
+	_ = http.ListenAndServe(":81", router)
 }
 func (p *program) Stop(s service.Service) error {
-	serviceRunning = false
-	for len(runningWorkplaces) != 0 {
-		LogInfo("MAIN", "Stopping, still running devices: "+strconv.Itoa(len(runningWorkplaces)))
-		time.Sleep(1 * time.Second)
-	}
 	LogInfo("MAIN", "Stopped on platform "+s.Platform())
 	return nil
 }
-
-var (
-	activeWorkplaces  []zapsi_database.Workplace
-	runningWorkplaces []zapsi_database.Workplace
-	workplaceSync     sync.Mutex
-)
 
 func main() {
 	serviceConfig := &service.Config{
@@ -86,77 +75,6 @@ func main() {
 	}
 }
 
-func CheckWorkplace(workplace zapsi_database.Workplace) bool {
-	for _, runningWorkplace := range runningWorkplaces {
-		if runningWorkplace.Name == workplace.Name {
-			return true
-		}
-	}
-	return false
-}
-
-func RunWorkplace(workplace zapsi_database.Workplace) {
-	LogInfo(workplace.Name, "Workplace started running")
-	workplaceSync.Lock()
-	runningWorkplaces = append(runningWorkplaces, workplace)
-	workplaceSync.Unlock()
-	workplaceIsActive := true
-	for workplaceIsActive && serviceRunning {
-		LogInfo(workplace.Name, "Starting workplace loop")
-		timer := time.Now()
-		LogInfo(workplace.Name, "Loop ended, elapsed: "+time.Since(timer).String())
-		Sleep(workplace, timer)
-		workplaceIsActive = CheckActive(workplace)
-	}
-	RemoveWorkplaceFromRunningWorkplaces(workplace)
-	LogInfo(workplace.Name, "Workplace not active, stopped running")
-
-}
-
-func Sleep(workplace zapsi_database.Workplace, start time.Time) {
-	if time.Since(start) < (downloadInSeconds * time.Second) {
-		sleepTime := downloadInSeconds*time.Second - time.Since(start)
-		LogInfo(workplace.Name, "Sleeping for "+sleepTime.String())
-		time.Sleep(sleepTime)
-	}
-}
-
-func CheckActive(workplace zapsi_database.Workplace) bool {
-	for _, activeWorkplace := range activeWorkplaces {
-		if activeWorkplace.Name == workplace.Name {
-			LogInfo(workplace.Name, "Workplace still active")
-			return true
-		}
-	}
-	LogInfo(workplace.Name, "Workplace not active")
-	return false
-}
-
-func RemoveWorkplaceFromRunningWorkplaces(workplace zapsi_database.Workplace) {
-	workplaceSync.Lock()
-	for idx, runningWorkplace := range runningWorkplaces {
-		if workplace.Name == runningWorkplace.Name {
-			runningWorkplaces = append(runningWorkplaces[0:idx], runningWorkplaces[idx+1:]...)
-		}
-	}
-	workplaceSync.Unlock()
-}
-
-func UpdateActiveWorkplaces(reference string) {
-	LogInfo("MAIN", "Updating active workplaces")
-	timer := time.Now()
-	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-	db, err := gorm.Open(dialect, connectionString)
-	if err != nil {
-		LogError(reference, "Problem opening "+DatabaseName+" database: "+err.Error())
-		activeWorkplaces = nil
-		return
-	}
-	defer db.Close()
-	db.Find(&activeWorkplaces)
-	LogInfo("MAIN", "Active workplaces updated, elapsed: "+time.Since(timer).String())
-}
-
 func WriteProgramVersionIntoSettings() {
 	LogInfo("MAIN", "Updating program version in database")
 	timer := time.Now()
@@ -173,4 +91,135 @@ func WriteProgramVersionIntoSettings() {
 	settings.Value = version
 	db.Save(&settings)
 	LogInfo("MAIN", "Program version updated, elapsed: "+time.Since(timer).String())
+}
+
+func StreamOverview(streamer *sse.Streamer) {
+	var workplaces []zapsi_database.Workplace
+	for {
+		LogInfo("MAIN", "Streaming overview")
+		workplaces = nil
+		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
+		db, err := gorm.Open(dialect, connectionString)
+		defer db.Close()
+		if err != nil {
+			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+			time.Sleep(10 * time.Second)
+			continue
+		}
+		db.Find(&workplaces)
+		production := 0
+		downtime := 0
+		offline := 0
+		for _, workplace := range workplaces {
+			stateRecord := zapsi_database.StateRecord{}
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
+			switch stateRecord.StateId {
+			case 1:
+				production++
+			case 2:
+				downtime++
+			case 3:
+				offline++
+			}
+		}
+		sum := production + offline + downtime
+		if sum == 0 {
+			streamer.SendString("", "overview", "Produkce 0%;Prostoj 0%;Vypnuto 0%")
+			time.Sleep(10 * time.Second)
+			continue
+		}
+		LogInfo("MAIN", "Production: "+strconv.Itoa(production)+", Downtime: "+strconv.Itoa(downtime)+", Offline: "+strconv.Itoa(offline))
+		productionPercent := production * 100 / sum
+		downtimePercent := downtime * 100 / sum
+		offlinePercent := 100 - productionPercent - downtimePercent
+		floatPointMiscalculation := offline == 0 && offlinePercent > 0
+		if floatPointMiscalculation {
+			offlinePercent = 0
+			if downtimePercent > productionPercent {
+				downtimePercent++
+			} else {
+				productionPercent++
+			}
+		}
+		LogInfo("MAIN", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
+		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
+		time.Sleep(10 * time.Second)
+	}
+}
+
+func StreamWorkplaces(streamer *sse.Streamer) {
+	var workplaces []zapsi_database.Workplace
+	for {
+		LogInfo("MAIN", "Streaming workplaces")
+		workplaces = nil
+		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
+		db, err := gorm.Open(dialect, connectionString)
+		defer db.Close()
+		if err != nil {
+			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+			time.Sleep(10 * time.Second)
+			continue
+		}
+		db.Find(&workplaces)
+		LogInfo("MAIN", "Workplaces count: "+strconv.Itoa(len(workplaces)))
+		for _, workplace := range workplaces {
+			stateRecord := zapsi_database.StateRecord{}
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
+			orderRecord := zapsi_database.OrderRecord{}
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&orderRecord)
+			workplaceHasOpenOrder := orderRecord.ID > 0
+			downtimeRecord := zapsi_database.DownTimeRecord{}
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&downtimeRecord)
+			downtime := zapsi_database.Downtime{}
+			db.Where("id = ?", downtimeRecord.DowntimeId).Find(&downtime)
+			userName := ""
+			order := zapsi_database.Order{}
+			if workplaceHasOpenOrder {
+				db.Where("id = ?", orderRecord.OrderId).Find(&order)
+				userRecord := zapsi_database.UserRecord{}
+				db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
+				user := zapsi_database.User{}
+				db.Where("id = ?", userRecord.UserId).Find(&user)
+				userName = user.FirstName + " " + user.SecondName
+			}
+			color := "green"
+			switch stateRecord.StateId {
+			case 1:
+				color = "green"
+			case 2:
+				color = "orange"
+			case 3:
+				color = "red"
+			}
+			LogInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
+			duration, err := durationfmt.Format(time.Now().Sub(stateRecord.DateTimeStart), "%dd %hh %mm")
+			if err != nil {
+				LogError(workplace.Name, "Problem parsing datetime: "+err.Error())
+			}
+			LogInfo(workplace.Name, "Streaming data to LCD")
+			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<span class=\"badge-bottom\">"+duration+"</span>;"+color)
+			LogInfo(workplace.Name, "Data streamed")
+		}
+		LogInfo("MAIN", "Workplaces streamed, waiting 10 second for another run")
+		time.Sleep(10 * time.Second)
+	}
+}
+
+func StreamTime(streamer *sse.Streamer) {
+	for {
+		streamer.SendString("", "time", monday.Format(time.Now(), "Monday, 2. January 2006 15:04:05", monday.LocaleCsCZ))
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func darcula(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	http.ServeFile(writer, request, "css/darcula.css")
+}
+
+func metrojs(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	http.ServeFile(writer, request, "js/metro.min.js")
+}
+
+func metrocss(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	http.ServeFile(writer, request, "css/metro-all.css")
 }
