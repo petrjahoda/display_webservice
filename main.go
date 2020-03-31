@@ -51,7 +51,7 @@ func (p *program) run() {
 	go StreamWorkplaces(workplaces)
 	go StreamOverview(overview)
 	LogInfo("MAIN", "Server running")
-	_ = http.ListenAndServe(":82", router)
+	_ = http.ListenAndServe(":81", router)
 }
 func (p *program) Stop(s service.Service) error {
 	LogInfo("MAIN", "Stopped on platform "+s.Platform())

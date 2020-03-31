@@ -187,3 +187,132 @@
 2020-03-31 12:00:49.432   CNC 3   INF   Workplace color: red, order: , downtime: , user: 
 2020-03-31 12:00:49.432   CNC 3   INF   Streaming data to LCD
 2020-03-31 12:00:49.432   CNC 3   INF   Data streamed
+2020-03-31 12:01:19.650   CNC 3   INF   Workplace color: red, order: , downtime: , user: 
+2020-03-31 12:01:19.650   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:01:19.651   CNC 3   INF   Data streamed
+2020-03-31 12:01:29.914   CNC 3   INF   Workplace color: orange, order: , downtime: , user: 
+2020-03-31 12:01:29.915   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:01:29.915   CNC 3   INF   Data streamed
+2020-03-31 12:01:40.076   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:01:40.076   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:01:40.076   CNC 3   INF   Data streamed
+2020-03-31 12:01:50.252   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:01:50.253   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:01:50.253   CNC 3   INF   Data streamed
+2020-03-31 12:02:00.418   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:00.418   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:00.418   CNC 3   INF   Data streamed
+2020-03-31 12:02:10.601   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:10.601   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:10.601   CNC 3   INF   Data streamed
+2020-03-31 12:02:20.791   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:20.791   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:20.791   CNC 3   INF   Data streamed
+2020-03-31 12:02:30.959   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:30.959   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:30.959   CNC 3   INF   Data streamed
+2020-03-31 12:02:41.152   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:41.152   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:41.152   CNC 3   INF   Data streamed
+2020-03-31 12:02:51.672   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:02:51.672   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:02:51.672   CNC 3   INF   Data streamed
+2020-03-31 12:03:02.416   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:02.416   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:02.416   CNC 3   INF   Data streamed
+2020-03-31 12:03:12.688   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:12.688   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:12.688   CNC 3   INF   Data streamed
+2020-03-31 12:03:22.875   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:22.876   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:22.876   CNC 3   INF   Data streamed
+2020-03-31 12:03:33.066   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:33.066   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:33.066   CNC 3   INF   Data streamed
+2020-03-31 12:03:43.255   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:43.255   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:43.255   CNC 3   INF   Data streamed
+2020-03-31 12:03:53.482   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:03:53.482   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:03:53.482   CNC 3   INF   Data streamed
+2020-03-31 12:04:03.660   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:03.660   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:03.660   CNC 3   INF   Data streamed
+2020-03-31 12:04:13.835   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:13.835   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:13.835   CNC 3   INF   Data streamed
+2020-03-31 12:04:24.018   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:24.018   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:24.018   CNC 3   INF   Data streamed
+2020-03-31 12:04:34.173   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:34.173   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:34.173   CNC 3   INF   Data streamed
+2020-03-31 12:04:44.346   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:44.346   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:44.347   CNC 3   INF   Data streamed
+2020-03-31 12:04:54.515   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:04:54.515   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:04:54.515   CNC 3   INF   Data streamed
+2020-03-31 12:05:04.689   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:05:04.690   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:04.690   CNC 3   INF   Data streamed
+2020-03-31 12:05:14.857   CNC 3   INF   Workplace color: orange, order: , downtime: No reason downtime, user: 
+2020-03-31 12:05:14.857   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:14.857   CNC 3   INF   Data streamed
+2020-03-31 12:05:25.045   CNC 3   INF   Workplace color: green, order: , downtime: No reason downtime, user: 
+2020-03-31 12:05:25.046   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:25.046   CNC 3   INF   Data streamed
+2020-03-31 12:05:35.229   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:05:35.229   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:35.229   CNC 3   INF   Data streamed
+2020-03-31 12:05:45.419   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:05:45.419   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:45.419   CNC 3   INF   Data streamed
+2020-03-31 12:05:55.602   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:05:55.602   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:05:55.602   CNC 3   INF   Data streamed
+2020-03-31 12:06:05.770   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:05.770   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:05.770   CNC 3   INF   Data streamed
+2020-03-31 12:06:15.964   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:15.964   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:15.965   CNC 3   INF   Data streamed
+2020-03-31 12:06:26.143   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:26.143   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:26.143   CNC 3   INF   Data streamed
+2020-03-31 12:06:36.324   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:36.324   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:36.324   CNC 3   INF   Data streamed
+2020-03-31 12:06:46.533   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:46.533   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:46.533   CNC 3   INF   Data streamed
+2020-03-31 12:06:54.688   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:06:54.688   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:06:54.689   CNC 3   INF   Data streamed
+2020-03-31 12:07:05.045   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:05.045   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:05.045   CNC 3   INF   Data streamed
+2020-03-31 12:07:15.232   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:15.232   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:15.232   CNC 3   INF   Data streamed
+2020-03-31 12:07:25.532   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:25.532   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:25.532   CNC 3   INF   Data streamed
+2020-03-31 12:07:35.947   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:35.947   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:35.948   CNC 3   INF   Data streamed
+2020-03-31 12:07:46.375   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:46.376   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:46.376   CNC 3   INF   Data streamed
+2020-03-31 12:07:56.725   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:07:56.725   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:07:56.725   CNC 3   INF   Data streamed
+2020-03-31 12:08:07.166   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:08:07.166   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:08:07.168   CNC 3   INF   Data streamed
+2020-03-31 12:08:17.384   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:08:17.384   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:08:17.384   CNC 3   INF   Data streamed
+2020-03-31 12:08:27.580   CNC 3   INF   Workplace color: green, order: Internal, downtime: , user:  
+2020-03-31 12:08:27.581   CNC 3   INF   Streaming data to LCD
+2020-03-31 12:08:27.581   CNC 3   INF   Data streamed
