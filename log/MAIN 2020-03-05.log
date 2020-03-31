@@ -2171,3 +2171,114 @@
 2020-03-05 14:20:22.216   MAIN   INF   Workplaces count: 20
 2020-03-05 14:20:22.423   MAIN   INF   Workplaces streamed, waiting 10 second for another run
 2020-03-05 14:20:26.184   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:24:06.382   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:24:06.382   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:24:06.382   MAIN   INF   Updating program version in database
+2020-03-05 14:24:06.396   MAIN   INF   Program version updated, elapsed: 13.260915ms
+2020-03-05 14:24:06.396   MAIN   INF   Server running
+2020-03-05 14:24:06.408   MAIN   INF   Streaming workplaces
+2020-03-05 14:24:06.409   MAIN   INF   Streaming overview
+2020-03-05 14:24:06.411   MAIN   INF   Workplaces count: 20
+2020-03-05 14:24:06.494   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:24:06.494   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:24:06.995   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:24:15.331   MAIN   INF   Stopped on platform darwin-launchd
+2020-03-05 14:24:31.472   MAIN   INF   Starting Display WebService on darwin-launchd
+2020-03-05 14:24:31.472   MAIN   INF   Display WebService version 2020.1.3.5 started
+2020-03-05 14:24:31.472   MAIN   INF   Updating program version in database
+2020-03-05 14:24:31.487   MAIN   INF   Program version updated, elapsed: 15.064884ms
+2020-03-05 14:24:31.487   MAIN   INF   Server running
+2020-03-05 14:24:31.494   MAIN   INF   Streaming overview
+2020-03-05 14:24:31.495   MAIN   INF   Streaming workplaces
+2020-03-05 14:24:31.498   MAIN   INF   Workplaces count: 20
+2020-03-05 14:24:31.540   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:24:31.540   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:24:31.854   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:24:41.554   MAIN   INF   Streaming overview
+2020-03-05 14:24:41.597   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:24:41.597   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:24:41.864   MAIN   INF   Streaming workplaces
+2020-03-05 14:24:41.866   MAIN   INF   Workplaces count: 20
+2020-03-05 14:24:42.049   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:24:49.485   MAIN   INF   Displaying Display 1
+2020-03-05 14:24:49.493   MAIN   INF   Adding workplace: CNC 0
+2020-03-05 14:24:49.493   MAIN   INF   Adding workplace: CNC 1
+2020-03-05 14:24:49.493   MAIN   INF   Adding workplace: CNC 10
+2020-03-05 14:24:49.493   MAIN   INF   Adding workplace: CNC 11
+2020-03-05 14:24:49.493   MAIN   INF   Adding workplace: CNC 12
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 13
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 14
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 15
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 16
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 17
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 18
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 19
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 2
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 3
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 4
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 5
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 6
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 7
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 8
+2020-03-05 14:24:49.494   MAIN   INF   Adding workplace: CNC 9
+2020-03-05 14:24:51.611   MAIN   INF   Streaming overview
+2020-03-05 14:24:51.648   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:24:51.648   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:24:52.061   MAIN   INF   Streaming workplaces
+2020-03-05 14:24:52.063   MAIN   INF   Workplaces count: 20
+2020-03-05 14:24:52.290   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:01.684   MAIN   INF   Streaming overview
+2020-03-05 14:25:01.823   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:01.823   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:02.297   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:02.300   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:02.688   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:11.832   MAIN   INF   Streaming overview
+2020-03-05 14:25:11.866   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:11.866   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:12.700   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:12.702   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:12.956   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:21.881   MAIN   INF   Streaming overview
+2020-03-05 14:25:21.925   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:21.926   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:22.974   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:22.977   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:23.273   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:31.938   MAIN   INF   Streaming overview
+2020-03-05 14:25:31.995   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:31.995   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:33.285   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:33.288   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:33.820   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:42.004   MAIN   INF   Streaming overview
+2020-03-05 14:25:42.056   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:42.056   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:43.829   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:43.831   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:44.052   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:25:52.067   MAIN   INF   Streaming overview
+2020-03-05 14:25:52.108   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:25:52.108   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:25:54.063   MAIN   INF   Streaming workplaces
+2020-03-05 14:25:54.065   MAIN   INF   Workplaces count: 20
+2020-03-05 14:25:54.244   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:26:02.123   MAIN   INF   Streaming overview
+2020-03-05 14:26:02.157   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:26:02.157   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:26:04.255   MAIN   INF   Streaming workplaces
+2020-03-05 14:26:04.258   MAIN   INF   Workplaces count: 20
+2020-03-05 14:26:04.463   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:26:12.173   MAIN   INF   Streaming overview
+2020-03-05 14:26:12.212   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:26:12.212   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:26:14.477   MAIN   INF   Streaming workplaces
+2020-03-05 14:26:14.480   MAIN   INF   Workplaces count: 20
+2020-03-05 14:26:14.643   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:26:22.227   MAIN   INF   Streaming overview
+2020-03-05 14:26:22.263   MAIN   INF   Production: 8, Downtime: 7, Offline: 5
+2020-03-05 14:26:22.263   MAIN   INF   Production: 40, Downtime: 35, Offline: 25
+2020-03-05 14:26:24.655   MAIN   INF   Streaming workplaces
+2020-03-05 14:26:24.657   MAIN   INF   Workplaces count: 20
+2020-03-05 14:26:24.810   MAIN   INF   Workplaces streamed, waiting 10 second for another run
+2020-03-05 14:26:29.295   MAIN   INF   Stopped on platform darwin-launchd

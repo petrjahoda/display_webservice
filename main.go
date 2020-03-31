@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-const version = "2020.1.3.5"
+const version = "2020.1.3.31"
 const programName = "Display WebService"
 const programDesription = "Display webpages, for use with big televisions and displays"
 const deleteLogsAfter = 240 * time.Hour
@@ -34,7 +34,7 @@ func (p *program) run() {
 	LogDebug("MAIN", "Using ["+DatabaseType+"] on "+DatabaseIpAddress+":"+DatabasePort+" with database "+DatabaseName)
 	WriteProgramVersionIntoSettings()
 	router := httprouter.New()
-	now := sse.New()
+	time := sse.New()
 	workplaces := sse.New()
 	overview := sse.New()
 
@@ -44,14 +44,14 @@ func (p *program) run() {
 	router.GET("/js/metro.min.js", metrojs)
 	router.GET("/css/metro-all.css", metrocss)
 
-	router.Handler("GET", "/now", now)
+	router.Handler("GET", "/time", time)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
-	go StreamTime(now)
+	go StreamTime(time)
 	go StreamWorkplaces(workplaces)
 	go StreamOverview(overview)
 	LogInfo("MAIN", "Server running")
-	_ = http.ListenAndServe(":81", router)
+	_ = http.ListenAndServe(":82", router)
 }
 func (p *program) Stop(s service.Service) error {
 	LogInfo("MAIN", "Stopped on platform "+s.Platform())

@@ -23,9 +23,7 @@
         document.getElementById(overviewData[0]).className = "bg-" + overviewData[2] + " tile-medium"
     }, false);
 </script>
-<div id="time" class="text-leader"
-     style="position:absolute;font-size: 1.5vw;font-weight: 300;bottom:1%;left:1.5%">
-</div>
+
 
 <div class="tiles-grid" style="margin-left: 1.5%;margin-top:1.5%;zoom: 90%">
     {{range .LcdWorkplaces}}
@@ -42,6 +40,9 @@
 </div>
 <div id="offline" class="text-leader"
      style="color:orange;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:70%;transform: translate(-50%, -50%);">
+</div>
+<div id="time" class="text-leader"
+     style="position:absolute;font-size: 1.5vw;font-weight: 500;bottom:1%;left:1%">
 </div>
 <div class="text"
      style="position:absolute;font-size: 1.5vw;font-weight: 500;bottom:1%;right:1%">
