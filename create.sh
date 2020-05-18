@@ -12,6 +12,6 @@ docker rmi -f petrjahoda/display_webservice:latest
 docker build -t petrjahoda/display_webservice:latest .
 docker push petrjahoda/display_webservice:latest
 
-docker rmi -f petrjahoda/display_webservice:2020.1.3
-docker build -t petrjahoda/display_webservice:2020.1.3 .
-docker push petrjahoda/display_webservice:2020.1.3
+docker rmi -f petrjahoda/display_webservice:2020.2.2
+docker build -t petrjahoda/display_webservice:2020.2.2 .
+docker push petrjahoda/display_webservice:2020.2.2

@@ -13,10 +13,12 @@ import (
 	"time"
 )
 
-const version = "2020.1.3.31"
+const version = "2020.2.2.18"
 const programName = "Display WebService"
 const programDesription = "Display webpages, for use with big televisions and displays"
 const deleteLogsAfter = 240 * time.Hour
+
+var serviceDirectory string
 
 type program struct{}
 
@@ -58,6 +60,10 @@ func (p *program) Stop(s service.Service) error {
 	return nil
 }
 
+func init() {
+	serviceDirectory = GetDirectory()
+}
+
 func main() {
 	serviceConfig := &service.Config{
 		Name:        programName,
@@ -84,6 +90,7 @@ func WriteProgramVersionIntoSettings() {
 		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
 		return
 	}
+	db.LogMode(false)
 	defer db.Close()
 	var settings zapsi_database.Setting
 	db.Where("name=?", programName).Find(&settings)
@@ -105,6 +112,7 @@ func StreamOverview(streamer *sse.Streamer) {
 			time.Sleep(10 * time.Second)
 			continue
 		}
+		db.LogMode(false)
 		db.Find(&workplaces)
 		production := 0
 		downtime := 0
@@ -159,6 +167,7 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			time.Sleep(10 * time.Second)
 			continue
 		}
+		db.LogMode(false)
 		db.Find(&workplaces)
 		LogInfo("MAIN", "Workplaces count: "+strconv.Itoa(len(workplaces)))
 		for _, workplace := range workplaces {

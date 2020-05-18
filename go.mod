@@ -10,5 +10,6 @@ require (
 	github.com/julienschmidt/sse v0.0.0-20190921213156-72db694fe9e6
 	github.com/kardianos/service v1.0.0
 	github.com/logrusorgru/aurora v0.0.0-20200102142835-e9ef32dff381
-	github.com/petrjahoda/zapsi_database v0.0.0-20200229110500-2382bed5b3ca
+	github.com/petrjahoda/zapsi_database v0.0.0-20200515124910-62cc5750fb0f
+	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
 )
