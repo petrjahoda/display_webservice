@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
 	"github.com/julienschmidt/httprouter"
-	"github.com/petrjahoda/zapsi_database"
+	"github.com/petrjahoda/database"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"html/template"
 	"net/http"
 	"time"
@@ -26,16 +27,12 @@ type LcdWorkplace struct {
 func Display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	LogInfo("MAIN", "Displaying Display 1")
 	tmpl := template.Must(template.ParseFiles("html/display_1.html"))
-	var workplaces []zapsi_database.Workplace
+	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
-
-	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-	db, err := gorm.Open(dialect, connectionString)
+	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+		LogError("MAIN", "Problem opening database: "+err.Error())
 	}
-	db.LogMode(false)
-	defer db.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)
@@ -49,15 +46,12 @@ func Display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 func Display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	LogInfo("MAIN", "Displaying Display 1")
 	tmpl := template.Must(template.ParseFiles("html/display_2.html"))
-	var workplaces []zapsi_database.Workplace
+	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
-	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-	db, err := gorm.Open(dialect, connectionString)
+	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+		LogError("MAIN", "Problem opening database: "+err.Error())
 	}
-	db.LogMode(false)
-	defer db.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)

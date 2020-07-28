@@ -3,22 +3,21 @@ package main
 import (
 	"github.com/davidscholberg/go-durationfmt"
 	"github.com/goodsign/monday"
-	"github.com/jinzhu/gorm"
 	"github.com/julienschmidt/httprouter"
 	"github.com/julienschmidt/sse"
 	"github.com/kardianos/service"
-	"github.com/petrjahoda/zapsi_database"
+	"github.com/petrjahoda/database"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"net/http"
 	"strconv"
 	"time"
 )
 
-const version = "2020.2.2.18"
+const version = "2020.3.1.28"
 const programName = "Display WebService"
-const programDesription = "Display webpages, for use with big televisions and displays"
-const deleteLogsAfter = 240 * time.Hour
-
-var serviceDirectory string
+const programDescription = "Display webpages, for use with big televisions and displays"
+const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
 
 type program struct{}
 
@@ -29,14 +28,10 @@ func (p *program) Start(s service.Service) error {
 }
 
 func (p *program) run() {
-	LogDirectoryFileCheck("MAIN")
 	LogInfo("MAIN", programName+" version "+version+" started")
-	CreateConfigIfNotExists()
-	LoadSettingsFromConfigFile()
-	LogDebug("MAIN", "Using ["+DatabaseType+"] on "+DatabaseIpAddress+":"+DatabasePort+" with database "+DatabaseName)
 	WriteProgramVersionIntoSettings()
 	router := httprouter.New()
-	time := sse.New()
+	timer := sse.New()
 	workplaces := sse.New()
 	overview := sse.New()
 
@@ -46,10 +41,10 @@ func (p *program) run() {
 	router.GET("/js/metro.min.js", metrojs)
 	router.GET("/css/metro-all.css", metrocss)
 
-	router.Handler("GET", "/time", time)
+	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
-	go StreamTime(time)
+	go StreamTime(timer)
 	go StreamWorkplaces(workplaces)
 	go StreamOverview(overview)
 	LogInfo("MAIN", "Server running")
@@ -60,15 +55,11 @@ func (p *program) Stop(s service.Service) error {
 	return nil
 }
 
-func init() {
-	serviceDirectory = GetDirectory()
-}
-
 func main() {
 	serviceConfig := &service.Config{
 		Name:        programName,
 		DisplayName: programName,
-		Description: programDesription,
+		Description: programDescription,
 	}
 	prg := &program{}
 	s, err := service.New(prg, serviceConfig)
@@ -84,15 +75,12 @@ func main() {
 func WriteProgramVersionIntoSettings() {
 	LogInfo("MAIN", "Updating program version in database")
 	timer := time.Now()
-	connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-	db, err := gorm.Open(dialect, connectionString)
+	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+		LogError("MAIN", "Problem opening database: "+err.Error())
 		return
 	}
-	db.LogMode(false)
-	defer db.Close()
-	var settings zapsi_database.Setting
+	var settings database.Setting
 	db.Where("name=?", programName).Find(&settings)
 	settings.Name = programName
 	settings.Value = version
@@ -101,26 +89,24 @@ func WriteProgramVersionIntoSettings() {
 }
 
 func StreamOverview(streamer *sse.Streamer) {
-	var workplaces []zapsi_database.Workplace
+	var workplaces []database.Workplace
 	for {
-		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-		db, err := gorm.Open(dialect, connectionString)
+		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 		LogInfo("MAIN", "Streaming overview")
 		workplaces = nil
 		if err != nil {
-			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+			LogError("MAIN", "Problem opening database: "+err.Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
-		db.LogMode(false)
 		db.Find(&workplaces)
 		production := 0
 		downtime := 0
 		offline := 0
 		for _, workplace := range workplaces {
-			stateRecord := zapsi_database.StateRecord{}
+			stateRecord := database.StateRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
-			switch stateRecord.StateId {
+			switch stateRecord.StateID {
 			case 1:
 				production++
 			case 2:
@@ -150,48 +136,45 @@ func StreamOverview(streamer *sse.Streamer) {
 		}
 		LogInfo("MAIN", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
-		db.Close()
 		time.Sleep(10 * time.Second)
 	}
 }
 
 func StreamWorkplaces(streamer *sse.Streamer) {
-	var workplaces []zapsi_database.Workplace
+	var workplaces []database.Workplace
 	for {
-		connectionString, dialect := zapsi_database.CheckDatabaseType(DatabaseType, DatabaseIpAddress, DatabasePort, DatabaseLogin, DatabaseName, DatabasePassword)
-		db, err := gorm.Open(dialect, connectionString)
+		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 		LogInfo("MAIN", "Streaming workplaces")
 		workplaces = nil
 		if err != nil {
-			LogError("MAIN", "Problem opening "+DatabaseName+" database: "+err.Error())
+			LogError("MAIN", "Problem opening database: "+err.Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
-		db.LogMode(false)
 		db.Find(&workplaces)
 		LogInfo("MAIN", "Workplaces count: "+strconv.Itoa(len(workplaces)))
 		for _, workplace := range workplaces {
-			stateRecord := zapsi_database.StateRecord{}
+			stateRecord := database.StateRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
-			orderRecord := zapsi_database.OrderRecord{}
+			orderRecord := database.OrderRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&orderRecord)
 			workplaceHasOpenOrder := orderRecord.ID > 0
-			downtimeRecord := zapsi_database.DownTimeRecord{}
+			downtimeRecord := database.DownTimeRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&downtimeRecord)
-			downtime := zapsi_database.Downtime{}
-			db.Where("id = ?", downtimeRecord.DowntimeId).Find(&downtime)
+			downtime := database.Downtime{}
+			db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
 			userName := ""
-			order := zapsi_database.Order{}
+			order := database.Order{}
 			if workplaceHasOpenOrder {
-				db.Where("id = ?", orderRecord.OrderId).Find(&order)
-				userRecord := zapsi_database.UserRecord{}
+				db.Where("id = ?", orderRecord.OrderID).Find(&order)
+				userRecord := database.UserRecord{}
 				db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
-				user := zapsi_database.User{}
-				db.Where("id = ?", userRecord.UserId).Find(&user)
+				user := database.User{}
+				db.Where("id = ?", userRecord.UserID).Find(&user)
 				userName = user.FirstName + " " + user.SecondName
 			}
 			color := "green"
-			switch stateRecord.StateId {
+			switch stateRecord.StateID {
 			case 1:
 				color = "green"
 			case 2:
@@ -209,7 +192,6 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			LogInfo(workplace.Name, "Data streamed")
 		}
 		LogInfo("MAIN", "Workplaces streamed, waiting 10 second for another run")
-		db.Close()
 		time.Sleep(10 * time.Second)
 	}
 }

@@ -1,10 +1,5 @@
 # Display WebService
 
-
-## Installation
-* use docker image from https://cloud.docker.com/r/petrjahoda/display_webservice
-* use linux, mac or windows version and make it run like a service
-
 ## Description
 Go service that shows web pages on port 81
 * `/display_1` shows all workplaces with their status in small tiles
@@ -15,4 +10,4 @@ Go service that shows web pages on port 81
 * using JSON config file for even better configurability
 
     
-www.zapsi.eu © 2020
+Petr Jahoda © 2020

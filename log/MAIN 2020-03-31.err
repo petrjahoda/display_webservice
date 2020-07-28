@@ -1,6 +1,0 @@
-2020-03-31 12:00:39.288   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
-2020-03-31 12:00:54.041   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
-2020-03-31 12:00:59.487   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
-2020-03-31 12:01:04.045   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
-2020-03-31 12:01:09.493   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
-2020-03-31 12:01:14.046   MAIN   ERR   Problem opening zapsi3 database: dial tcp [::1]:5432: connect: connection refused
