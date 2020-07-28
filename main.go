@@ -17,7 +17,7 @@ import (
 const version = "2020.3.1.28"
 const programName = "Display WebService"
 const programDescription = "Display webpages, for use with big televisions and displays"
-const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
+const config = "user=postgres password=Zps05..... dbname=version3 host=localhost port=5432 sslmode=disable"
 
 type program struct{}
 
@@ -44,11 +44,25 @@ func (p *program) run() {
 	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
-	go StreamTime(timer)
+
+	timezone := GetTimeZoneFromDatabase()
+	go StreamTime(timer, timezone)
 	go StreamWorkplaces(workplaces)
 	go StreamOverview(overview)
+
 	LogInfo("MAIN", "Server running")
 	_ = http.ListenAndServe(":81", router)
+}
+
+func GetTimeZoneFromDatabase() string {
+	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	if err != nil {
+		LogError("MAIN", "Problem opening database: "+err.Error())
+		return ""
+	}
+	var settings database.Setting
+	db.Where("name=?", "timezone").Find(&settings)
+	return settings.Value
 }
 func (p *program) Stop(s service.Service) error {
 	LogInfo("MAIN", "Stopped on platform "+s.Platform())
@@ -105,7 +119,7 @@ func StreamOverview(streamer *sse.Streamer) {
 		offline := 0
 		for _, workplace := range workplaces {
 			stateRecord := database.StateRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
+			db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
 			switch stateRecord.StateID {
 			case 1:
 				production++
@@ -155,12 +169,12 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 		LogInfo("MAIN", "Workplaces count: "+strconv.Itoa(len(workplaces)))
 		for _, workplace := range workplaces {
 			stateRecord := database.StateRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&stateRecord)
+			db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
 			orderRecord := database.OrderRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&orderRecord)
+			db.Where("workplace_id = ?", workplace.ID).Last(&orderRecord)
 			workplaceHasOpenOrder := orderRecord.ID > 0
 			downtimeRecord := database.DownTimeRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Find(&downtimeRecord)
+			db.Where("workplace_id = ?", workplace.ID).Last(&downtimeRecord)
 			downtime := database.Downtime{}
 			db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
 			userName := ""
@@ -196,9 +210,13 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 	}
 }
 
-func StreamTime(streamer *sse.Streamer) {
+func StreamTime(streamer *sse.Streamer, timezone string) {
 	for {
-		streamer.SendString("", "time", monday.Format(time.Now(), "Monday, 2. January 2006 15:04:05", monday.LocaleCsCZ))
+		location, err := time.LoadLocation(timezone)
+		if err != nil {
+			LogError("MAIN", "Problem loading location: "+timezone)
+		}
+		streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006 15:04:05", monday.LocaleCsCZ))
 		time.Sleep(1 * time.Second)
 	}
 }

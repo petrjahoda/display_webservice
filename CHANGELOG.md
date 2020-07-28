@@ -16,6 +16,9 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 
 ## [2020.3.1.28] - 2020-07-28
 
+### Added
+- loading location from database for displaying
+
 ### Changed
 - changed to gorm v2
 - postgres only
