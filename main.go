@@ -17,7 +17,7 @@ import (
 const version = "2020.3.1.28"
 const programName = "Display WebService"
 const programDescription = "Display webpages, for use with big televisions and displays"
-const config = "user=postgres password=Zps05..... dbname=version3 host=localhost port=5432 sslmode=disable"
+const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
 
 type program struct{}
 
