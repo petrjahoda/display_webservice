@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const version = "2020.3.1.28"
+const version = "2020.3.1.29"
 const programName = "Display WebService"
 const programDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
@@ -215,9 +215,10 @@ func StreamTime(streamer *sse.Streamer, timezone string) {
 		location, err := time.LoadLocation(timezone)
 		if err != nil {
 			LogError("MAIN", "Problem loading location: "+timezone)
+		} else {
+			streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006 15:04:05", monday.LocaleCsCZ))
+			time.Sleep(1 * time.Second)
 		}
-		streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006 15:04:05", monday.LocaleCsCZ))
-		time.Sleep(1 * time.Second)
 	}
 }
 
