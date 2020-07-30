@@ -15,6 +15,14 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 * ```Security``` in case of vulnerabilities.
 
 
+## [2020.3.1.30] - 2020-07-30
+
+### Update
+- update to latest database changes
+
+### Changed
+- dockerfile changed to "from scratch"
+
 ## [2020.3.1.29] - 2020-07-29
 
 ### Fixed

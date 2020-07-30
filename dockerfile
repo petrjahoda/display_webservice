@@ -1,8 +1,10 @@
-FROM alpine:latest
-RUN apk update && apk upgrade && apk add bash&& apk add nano
-WORKDIR /bin
-COPY /css /bin/css
-COPY /html /bin/html
-COPY /js /bin/js
-COPY /linux /bin
-ENTRYPOINT display_webservice_linux
+FROM alpine:latest as build
+RUN apk add tzdata
+
+FROM scratch as final
+COPY /css /css
+COPY /html html
+COPY /js js
+COPY /linux /
+COPY --from=build /usr/share/zoneinfo /usr/share/zoneinfo
+CMD ["/display_webservice_linux"]
