@@ -60,6 +60,8 @@ func GetTimeZoneFromDatabase() string {
 		LogError("MAIN", "Problem opening database: "+err.Error())
 		return ""
 	}
+	sqlDB, err := db.DB()
+	defer sqlDB.Close()
 	var settings database.Setting
 	db.Where("name=?", "timezone").Find(&settings)
 	return settings.Value
@@ -94,6 +96,8 @@ func WriteProgramVersionIntoSettings() {
 		LogError("MAIN", "Problem opening database: "+err.Error())
 		return
 	}
+	sqlDB, err := db.DB()
+	defer sqlDB.Close()
 	var settings database.Setting
 	db.Where("name=?", programName).Find(&settings)
 	settings.Name = programName
@@ -150,6 +154,8 @@ func StreamOverview(streamer *sse.Streamer) {
 		}
 		LogInfo("MAIN", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
+		sqlDB, err := db.DB()
+		sqlDB.Close()
 		time.Sleep(10 * time.Second)
 	}
 }
@@ -206,6 +212,8 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			LogInfo(workplace.Name, "Data streamed")
 		}
 		LogInfo("MAIN", "Workplaces streamed, waiting 10 second for another run")
+		sqlDB, err := db.DB()
+		sqlDB.Close()
 		time.Sleep(10 * time.Second)
 	}
 }

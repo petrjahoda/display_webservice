@@ -33,6 +33,8 @@ func Display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	if err != nil {
 		LogError("MAIN", "Problem opening database: "+err.Error())
 	}
+	sqlDB, err := db.DB()
+	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)
@@ -52,6 +54,8 @@ func Display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	if err != nil {
 		LogError("MAIN", "Problem opening database: "+err.Error())
 	}
+	sqlDB, err := db.DB()
+	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		LogInfo("MAIN", "Adding workplace: "+workplace.Name)
