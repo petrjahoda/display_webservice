@@ -19,6 +19,9 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 ### Changed
 - updated html files
 
+### Fixed
+- proper displaying order, downtime and user
+
 ## [2020.3.1.30] - 2020-07-30
 
 ### Changed

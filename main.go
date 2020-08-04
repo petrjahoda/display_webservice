@@ -177,10 +177,10 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			stateRecord := database.StateRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
 			orderRecord := database.OrderRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Last(&orderRecord)
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
 			workplaceHasOpenOrder := orderRecord.ID > 0
 			downtimeRecord := database.DownTimeRecord{}
-			db.Where("workplace_id = ?", workplace.ID).Last(&downtimeRecord)
+			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
 			downtime := database.Downtime{}
 			db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
 			userName := ""
