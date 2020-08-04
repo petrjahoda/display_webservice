@@ -10,4 +10,4 @@ Go service that shows web pages on port 81
 * using JSON config file for even better configurability
 
     
-Petr Jahoda © 2020
+tGMS © 2020 Petr Jahoda
