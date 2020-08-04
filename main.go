@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const version = "2020.3.1.30"
+const version = "2020.3.2.4"
 const programName = "Display WebService"
 const programDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
