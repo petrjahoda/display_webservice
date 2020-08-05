@@ -5,6 +5,7 @@ import (
 	"github.com/julienschmidt/sse"
 	"github.com/kardianos/service"
 	"net/http"
+	"os"
 )
 
 const version = "2020.3.2.5"
@@ -49,7 +50,6 @@ func (p *program) run() {
 	timer := sse.New()
 	workplaces := sse.New()
 	overview := sse.New()
-
 	router.GET("/display_1", Display1)
 	router.GET("/display_2", Display2)
 	router.GET("/css/darcula.css", darcula)
@@ -58,15 +58,14 @@ func (p *program) run() {
 	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
-
 	timezone := ReadTimeZoneFromDatabase()
 	go StreamTime(timer, timezone)
 	go StreamWorkplaces(workplaces)
 	go StreamOverview(overview)
-
 	err := http.ListenAndServe(":81", router)
 	if err != nil {
-		LogInfo("MAIN", "Problem starting service: "+err.Error())
+		LogError("MAIN", "Problem starting service: "+err.Error())
+		os.Exit(-1)
 	}
 	LogInfo("MAIN", serviceName+" ["+version+"] running")
 }
