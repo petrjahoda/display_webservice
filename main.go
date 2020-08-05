@@ -55,7 +55,6 @@ func (p *program) run() {
 	router.GET("/css/darcula.css", darcula)
 	router.GET("/js/metro.min.js", metrojs)
 	router.GET("/css/metro-all.css", metrocss)
-
 	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
