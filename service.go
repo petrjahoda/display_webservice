@@ -164,6 +164,9 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 func StreamTime(streamer *sse.Streamer, timezone string) {
 	LogInfo("SSE", "Streaming time process started")
 	for {
+		if timezone == "" {
+			timezone = ReadTimeZoneFromDatabase()
+		}
 		location, err := time.LoadLocation(timezone)
 		if err != nil {
 			LogError("MAIN", "Problem loading location: "+timezone)
