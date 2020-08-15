@@ -4,21 +4,21 @@
 <script src="../js/metro.min.js"></script>
 <script type="text/javascript">
     const time = new EventSource('/time');
-    time.addEventListener('time', () => {
-        document.getElementById("time").innerHTML = event.data;
+    time.addEventListener('time', (e) => {
+        document.getElementById("time").innerHTML = e.data;
 
     }, false);
     const overview = new EventSource('/overview');
-    overview.addEventListener('overview', () => {
-        const overviewData = event.data.split(";");
+    overview.addEventListener('overview', (e) => {
+        const overviewData = e.data.split(";");
         document.getElementById("production").innerHTML = overviewData[0];
         document.getElementById("downtime").innerHTML = overviewData[1];
         document.getElementById("offline").innerHTML = overviewData[2];
 
     }, false);
     const workplaces = new EventSource('/workplaces');
-    workplaces.addEventListener('workplaces', () => {
-        const overviewData = event.data.split(";");
+    workplaces.addEventListener('workplaces', (e) => {
+        const overviewData = e.data.split(";");
         document.getElementById(overviewData[0]).innerHTML = overviewData[1];
         document.getElementById(overviewData[0]).className = "bg-" + overviewData[2] + " tile-medium"
     }, false);
