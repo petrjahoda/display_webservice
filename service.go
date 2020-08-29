@@ -13,28 +13,28 @@ import (
 	"time"
 )
 
-func ReadTimeZoneFromDatabase() string {
-	LogInfo("MAIN", "Reading timezone from database")
+func readTimeZoneFromDatabase() string {
+	logInfo("MAIN", "Reading timezone from database")
 	timer := time.Now()
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("MAIN", "Problem opening database: "+err.Error())
+		logError("MAIN", "Problem opening database: "+err.Error())
 		return ""
 	}
 	sqlDB, err := db.DB()
 	defer sqlDB.Close()
 	var settings database.Setting
 	db.Where("name=?", "timezone").Find(&settings)
-	LogInfo("MAIN", "Timezone read in "+time.Since(timer).String())
+	logInfo("MAIN", "Timezone read in "+time.Since(timer).String())
 	return settings.Value
 }
 
-func UpdateProgramVersion() {
-	LogInfo("MAIN", "Writing program version into settings")
+func updateProgramVersion() {
+	logInfo("MAIN", "Writing program version into settings")
 	timer := time.Now()
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("MAIN", "Problem opening database: "+err.Error())
+		logError("MAIN", "Problem opening database: "+err.Error())
 		return
 	}
 	sqlDB, err := db.DB()
@@ -44,19 +44,19 @@ func UpdateProgramVersion() {
 	existingSettings.Name = serviceName
 	existingSettings.Value = version
 	db.Save(&existingSettings)
-	LogInfo("MAIN", "Program version written into settings in "+time.Since(timer).String())
+	logInfo("MAIN", "Program version written into settings in "+time.Since(timer).String())
 }
 
-func StreamOverview(streamer *sse.Streamer) {
-	LogInfo("SSE", "Streaming overview process started")
+func streamOverview(streamer *sse.Streamer) {
+	logInfo("SSE", "Streaming overview process started")
 	var workplaces []database.Workplace
 	for {
-		LogInfo("SSE", "Streaming overview started")
+		logInfo("SSE", "Streaming overview started")
 		timer := time.Now()
 		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 		workplaces = nil
 		if err != nil {
-			LogError("SSE", "Problem opening database: "+err.Error())
+			logError("SSE", "Problem opening database: "+err.Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
@@ -94,30 +94,30 @@ func StreamOverview(streamer *sse.Streamer) {
 				productionPercent++
 			}
 		}
-		LogInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
+		logInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
 		sqlDB, err := db.DB()
 		sqlDB.Close()
-		LogInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
+		logInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}
 }
 
-func StreamWorkplaces(streamer *sse.Streamer) {
-	LogInfo("SSE", "Streaming workplaces process started")
+func streamWorkplaces(streamer *sse.Streamer) {
+	logInfo("SSE", "Streaming workplaces process started")
 	var workplaces []database.Workplace
 	for {
-		LogInfo("SSE", "Streaming workplaces running")
+		logInfo("SSE", "Streaming workplaces running")
 		timer := time.Now()
 		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 		workplaces = nil
 		if err != nil {
-			LogError("SSE", "Problem opening database: "+err.Error())
+			logError("SSE", "Problem opening database: "+err.Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
 		db.Find(&workplaces)
-		LogInfo("SSE", "Workplaces count: "+strconv.Itoa(len(workplaces)))
+		logInfo("SSE", "Workplaces count: "+strconv.Itoa(len(workplaces)))
 		for _, workplace := range workplaces {
 			stateRecord := database.StateRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
@@ -147,29 +147,29 @@ func StreamWorkplaces(streamer *sse.Streamer) {
 			case 3:
 				color = "red"
 			}
-			LogInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
+			logInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
 			duration, err := durationfmt.Format(time.Now().Sub(stateRecord.DateTimeStart), "%dd %hh %mm")
 			if err != nil {
-				LogError(workplace.Name, "Problem parsing datetime: "+err.Error())
+				logError(workplace.Name, "Problem parsing datetime: "+err.Error())
 			}
 			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<span class=\"badge-bottom\">"+duration+"</span>;"+color)
 		}
 		sqlDB, err := db.DB()
 		sqlDB.Close()
-		LogInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
+		logInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}
 }
 
-func StreamTime(streamer *sse.Streamer, timezone string) {
-	LogInfo("SSE", "Streaming time process started")
+func streamTime(streamer *sse.Streamer, timezone string) {
+	logInfo("SSE", "Streaming time process started")
 	for {
 		if timezone == "" {
-			timezone = ReadTimeZoneFromDatabase()
+			timezone = readTimeZoneFromDatabase()
 		}
 		location, err := time.LoadLocation(timezone)
 		if err != nil {
-			LogError("MAIN", "Problem loading location: "+timezone)
+			logError("MAIN", "Problem loading location: "+timezone)
 		} else {
 			streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006, 15:04:05", monday.LocaleCsCZ))
 			time.Sleep(1 * time.Second)

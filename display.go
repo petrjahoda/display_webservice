@@ -24,48 +24,48 @@ type LcdWorkplace struct {
 	Duration   time.Duration
 }
 
-func Display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	LogInfo("HTML", "Display 1 process started")
+func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+	logInfo("HTML", "Display 1 process started")
 	timer := time.Now()
 	tmpl := template.Must(template.ParseFiles("html/display_1.html"))
 	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("HTML", "Problem opening database: "+err.Error())
+		logError("HTML", "Problem opening database: "+err.Error())
 	}
 	sqlDB, err := db.DB()
 	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
-		LogInfo("HTML", "Adding workplace: "+workplace.Name)
+		logInfo("HTML", "Adding workplace: "+workplace.Name)
 		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}
 		lcdWorkplaces.LcdWorkplaces = append(lcdWorkplaces.LcdWorkplaces, lcdWorkplace)
 	}
 	lcdWorkplaces.Version = "version: " + version
 	_ = tmpl.Execute(writer, lcdWorkplaces)
-	LogInfo("HTML", "Display 1 process ended in "+time.Since(timer).String())
+	logInfo("HTML", "Display 1 process ended in "+time.Since(timer).String())
 }
 
-func Display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	LogInfo("HTML", "Display 2 process started")
+func display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+	logInfo("HTML", "Display 2 process started")
 	timer := time.Now()
 	tmpl := template.Must(template.ParseFiles("html/display_2.html"))
 	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
-		LogError("HTML", "Problem opening database: "+err.Error())
+		logError("HTML", "Problem opening database: "+err.Error())
 	}
 	sqlDB, err := db.DB()
 	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
-		LogInfo("HTML", "Adding workplace: "+workplace.Name)
+		logInfo("HTML", "Adding workplace: "+workplace.Name)
 		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}
 		lcdWorkplaces.LcdWorkplaces = append(lcdWorkplaces.LcdWorkplaces, lcdWorkplace)
 	}
 	lcdWorkplaces.Version = "version: " + version
 	_ = tmpl.Execute(writer, lcdWorkplaces)
-	LogInfo("HTML", "Display 2 process ended in "+time.Since(timer).String())
+	logInfo("HTML", "Display 2 process ended in "+time.Since(timer).String())
 }
