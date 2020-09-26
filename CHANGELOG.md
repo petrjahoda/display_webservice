@@ -19,6 +19,9 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 ### Changed
 - updated to latest libraries
 
+### Fixed
+- proper loading metro.min.js
+
 ## [2020.3.2.22] - 2020-08-29
 
 ### Changed

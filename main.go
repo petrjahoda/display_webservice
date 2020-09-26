@@ -55,6 +55,7 @@ func (p *program) run() {
 	router.GET("/css/darcula.css", darcula)
 	router.GET("/js/metro.min.js", metrojs)
 	router.GET("/css/metro-all.css", metrocss)
+	router.GET("/js/metro.min.js.map", metrominjsmap)
 	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
@@ -68,4 +69,8 @@ func (p *program) run() {
 		os.Exit(-1)
 	}
 	logInfo("MAIN", serviceName+" ["+version+"] running")
+}
+
+func metrominjsmap(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	http.ServeFile(writer, request, "js/metro.min.js.map")
 }
