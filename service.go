@@ -78,7 +78,7 @@ func streamOverview(streamer *sse.Streamer) {
 		}
 		sum := production + offline + downtime
 		if sum == 0 {
-			streamer.SendString("", "overview", "Produkce 0%;Prostoj 0%;Vypnuto 0%")
+			streamer.SendString("", "overview", "Production 0%;Downtime 0%;Poweroff 0%")
 			time.Sleep(10 * time.Second)
 			continue
 		}
@@ -95,7 +95,7 @@ func streamOverview(streamer *sse.Streamer) {
 			}
 		}
 		logInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
-		streamer.SendString("", "overview", "Produkce "+strconv.Itoa(productionPercent)+"%;Prostoj "+strconv.Itoa(downtimePercent)+"%;Vypnuto "+strconv.Itoa(offlinePercent)+"%")
+		streamer.SendString("", "overview", "Production "+strconv.Itoa(productionPercent)+"%;Downtime "+strconv.Itoa(downtimePercent)+"%;Poweroff "+strconv.Itoa(offlinePercent)+"%")
 		sqlDB, err := db.DB()
 		sqlDB.Close()
 		logInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
@@ -171,7 +171,7 @@ func streamTime(streamer *sse.Streamer, timezone string) {
 		if err != nil {
 			logError("MAIN", "Problem loading location: "+timezone)
 		} else {
-			streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006, 15:04:05", monday.LocaleCsCZ))
+			streamer.SendString("", "time", monday.Format(time.Now().In(location), "Monday, 2. January 2006, 15:04:05", monday.LocaleEnUS))
 			time.Sleep(1 * time.Second)
 		}
 	}

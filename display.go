@@ -38,8 +38,37 @@ func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
+		stateRecord := database.StateRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
+		orderRecord := database.OrderRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
+		workplaceHasOpenOrder := orderRecord.ID > 0
+		downtimeRecord := database.DownTimeRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
+		downtime := database.Downtime{}
+		db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
+		userName := ""
+		order := database.Order{}
+		if workplaceHasOpenOrder {
+			db.Where("id = ?", orderRecord.OrderID).Find(&order)
+			userRecord := database.UserRecord{}
+			db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
+			user := database.User{}
+			db.Where("id = ?", userRecord.UserID).Find(&user)
+			userName = user.FirstName + " " + user.SecondName
+		}
+		color := "green"
+		switch stateRecord.StateID {
+		case 1:
+			color = "green"
+		case 2:
+			color = "orange"
+		case 3:
+			color = "red"
+		}
+		logInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
 		logInfo("HTML", "Adding workplace: "+workplace.Name)
-		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}
+		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: userName, StateColor: color, Duration: time.Now().Sub(stateRecord.DateTimeStart), Downtime: downtime.Name, Order: order.Name}
 		lcdWorkplaces.LcdWorkplaces = append(lcdWorkplaces.LcdWorkplaces, lcdWorkplace)
 	}
 	lcdWorkplaces.Version = "version: " + version
@@ -61,8 +90,37 @@ func display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
+		stateRecord := database.StateRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
+		orderRecord := database.OrderRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
+		workplaceHasOpenOrder := orderRecord.ID > 0
+		downtimeRecord := database.DownTimeRecord{}
+		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
+		downtime := database.Downtime{}
+		db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
+		userName := ""
+		order := database.Order{}
+		if workplaceHasOpenOrder {
+			db.Where("id = ?", orderRecord.OrderID).Find(&order)
+			userRecord := database.UserRecord{}
+			db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
+			user := database.User{}
+			db.Where("id = ?", userRecord.UserID).Find(&user)
+			userName = user.FirstName + " " + user.SecondName
+		}
+		color := "green"
+		switch stateRecord.StateID {
+		case 1:
+			color = "green"
+		case 2:
+			color = "orange"
+		case 3:
+			color = "red"
+		}
+		logInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
 		logInfo("HTML", "Adding workplace: "+workplace.Name)
-		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: "loading...", StateColor: "", Duration: 0 * time.Hour, Downtime: "", Order: ""}
+		lcdWorkplace := LcdWorkplace{Name: workplace.Name, User: userName, StateColor: color, Duration: time.Now().Sub(stateRecord.DateTimeStart), Downtime: downtime.Name, Order: order.Name}
 		lcdWorkplaces.LcdWorkplaces = append(lcdWorkplaces.LcdWorkplaces, lcdWorkplace)
 	}
 	lcdWorkplaces.Version = "version: " + version

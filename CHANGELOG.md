@@ -18,6 +18,7 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 
 ### Changed
 - updated readme.md
+- proper data loaded when page loaded
 
 ## [2020.3.3.27] - 2020-09-27
 

@@ -27,7 +27,7 @@
 
 <div class="tiles-grid" style="margin-left: 1.5%;margin-top:1.5%;zoom: 90%">
     {{range .LcdWorkplaces}}
-        <div id="{{.Name}}" data-role="tile" data-size="medium" class="bg-gray tile-medium" data-role-tile="true"
+        <div id="{{.Name}}" data-role="tile" data-size="medium" class="bg-{{.StateColor}} tile-medium" data-role-tile="true"
              style="padding-top:2px;text-align: center;font-size: 16px">{{.Name}}<br>{{.User}}<br>{{.Order}}<br>{{.Downtime}}</div>
     {{end}}
 </div>
