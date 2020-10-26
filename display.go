@@ -31,11 +31,11 @@ func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	sqlDB, _ := db.DB()
+	defer sqlDB.Close()
 	if err != nil {
 		logError("HTML", "Problem opening database: "+err.Error())
 	}
-	sqlDB, err := db.DB()
-	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		stateRecord := database.StateRecord{}
@@ -83,11 +83,11 @@ func display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	sqlDB, _ := db.DB()
+	defer sqlDB.Close()
 	if err != nil {
 		logError("HTML", "Problem opening database: "+err.Error())
 	}
-	sqlDB, err := db.DB()
-	defer sqlDB.Close()
 	db.Order("Name asc").Find(&workplaces)
 	for _, workplace := range workplaces {
 		stateRecord := database.StateRecord{}

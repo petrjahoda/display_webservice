@@ -17,12 +17,12 @@ func readTimeZoneFromDatabase() string {
 	logInfo("MAIN", "Reading timezone from database")
 	timer := time.Now()
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	sqlDB, _ := db.DB()
+	defer sqlDB.Close()
 	if err != nil {
 		logError("MAIN", "Problem opening database: "+err.Error())
 		return ""
 	}
-	sqlDB, err := db.DB()
-	defer sqlDB.Close()
 	var settings database.Setting
 	db.Where("name=?", "timezone").Find(&settings)
 	logInfo("MAIN", "Timezone read in "+time.Since(timer).String())
@@ -33,12 +33,12 @@ func updateProgramVersion() {
 	logInfo("MAIN", "Writing program version into settings")
 	timer := time.Now()
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	sqlDB, _ := db.DB()
+	defer sqlDB.Close()
 	if err != nil {
 		logError("MAIN", "Problem opening database: "+err.Error())
 		return
 	}
-	sqlDB, err := db.DB()
-	defer sqlDB.Close()
 	var existingSettings database.Setting
 	db.Where("name=?", serviceName).Find(&existingSettings)
 	existingSettings.Name = serviceName
@@ -96,8 +96,8 @@ func streamOverview(streamer *sse.Streamer) {
 		}
 		logInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Production "+strconv.Itoa(productionPercent)+"%;Downtime "+strconv.Itoa(downtimePercent)+"%;Poweroff "+strconv.Itoa(offlinePercent)+"%")
-		sqlDB, err := db.DB()
-		sqlDB.Close()
+		sqlDB, _ := db.DB()
+		defer sqlDB.Close()
 		logInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}
@@ -154,8 +154,8 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			}
 			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<span class=\"badge-bottom\">"+duration+"</span>;"+color)
 		}
-		sqlDB, err := db.DB()
-		sqlDB.Close()
+		sqlDB, _ := db.DB()
+		defer sqlDB.Close()
 		logInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}
