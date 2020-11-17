@@ -154,6 +154,8 @@ github.com/petrjahoda/database v0.0.0-20201026080458-bea06f493072 h1:i1OQz8J+ZAb
 github.com/petrjahoda/database v0.0.0-20201026080458-bea06f493072/go.mod h1:nEKYVrEpSeJ8ovKw96yJkYHUG32xFqhIFwMxt2SQvKY=
 github.com/petrjahoda/database v0.0.0-20201117081450-ebbecafbf163 h1:HxbgqSDhJSlnDxohTMduWLazRfX3BiflyRWVwP0JoD4=
 github.com/petrjahoda/database v0.0.0-20201117081450-ebbecafbf163/go.mod h1:DILASTW9lOab8F1It7sl0jKA2zAU9Uwe//R2UO9HhNY=
+github.com/petrjahoda/database v0.0.0-20201117090852-47341a185dc1 h1:/CeyhpdHEieI4LkUUL6lwTXbUu3aDOhidh0nhZG9QbU=
+github.com/petrjahoda/database v0.0.0-20201117090852-47341a185dc1/go.mod h1:DILASTW9lOab8F1It7sl0jKA2zAU9Uwe//R2UO9HhNY=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=

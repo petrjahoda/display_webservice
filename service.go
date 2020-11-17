@@ -97,7 +97,7 @@ func streamOverview(streamer *sse.Streamer) {
 		logInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Production "+strconv.Itoa(productionPercent)+"%;Downtime "+strconv.Itoa(downtimePercent)+"%;Poweroff "+strconv.Itoa(offlinePercent)+"%")
 		sqlDB, _ := db.DB()
-		defer sqlDB.Close()
+		sqlDB.Close()
 		logInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}
@@ -124,7 +124,7 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			orderRecord := database.OrderRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
 			workplaceHasOpenOrder := orderRecord.ID > 0
-			downtimeRecord := database.DownTimeRecord{}
+			downtimeRecord := database.DowntimeRecord{}
 			db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
 			downtime := database.Downtime{}
 			db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
@@ -155,7 +155,7 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<span class=\"badge-bottom\">"+duration+"</span>;"+color)
 		}
 		sqlDB, _ := db.DB()
-		defer sqlDB.Close()
+		sqlDB.Close()
 		logInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
 	}

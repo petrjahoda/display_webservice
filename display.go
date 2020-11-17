@@ -43,7 +43,7 @@ func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 		orderRecord := database.OrderRecord{}
 		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
 		workplaceHasOpenOrder := orderRecord.ID > 0
-		downtimeRecord := database.DownTimeRecord{}
+		downtimeRecord := database.DowntimeRecord{}
 		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
 		downtime := database.Downtime{}
 		db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
@@ -95,7 +95,7 @@ func display2(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 		orderRecord := database.OrderRecord{}
 		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
 		workplaceHasOpenOrder := orderRecord.ID > 0
-		downtimeRecord := database.DownTimeRecord{}
+		downtimeRecord := database.DowntimeRecord{}
 		db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
 		downtime := database.Downtime{}
 		db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
