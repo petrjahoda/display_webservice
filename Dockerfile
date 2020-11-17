@@ -7,4 +7,4 @@ COPY /html html
 COPY /js js
 COPY /linux /
 COPY --from=build /usr/share/zoneinfo /usr/share/zoneinfo
-CMD ["/display_webservice_linux"]
+CMD ["/display_webservice"]
