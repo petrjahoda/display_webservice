@@ -152,7 +152,7 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			if err != nil {
 				logError(workplace.Name, "Problem parsing datetime: "+err.Error())
 			}
-			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<span class=\"badge-bottom\">"+duration+"</span>;"+color)
+			streamer.SendString("", "workplaces", workplace.Name+";"+workplace.Name+"<br>"+userName+"<br>"+downtime.Name+"<br>"+order.Name+"<br>"+duration+";"+color)
 		}
 		sqlDB, _ := db.DB()
 		sqlDB.Close()

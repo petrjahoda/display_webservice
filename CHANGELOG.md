@@ -20,6 +20,12 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 - updated all go libraries 
 - updated Dockerfile
 - updated create.sh
+- metroui change to specific js and css
+- font changed to proximanova
+
+### Removed
+- metroui css and js
+- display_2
 
 ## [2020.4.1.26] - 2020-10-26
 

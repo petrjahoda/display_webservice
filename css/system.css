@@ -1,0 +1,64 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url(../fonts/ProximaNova-Reg-webfont.woff2);
+}
+@font-face {
+    font-family: ProximaNovaLight;
+    src: url(../fonts/ProximaNova-Light-webfont.woff2);
+}
+
+html {
+    font-family: ProximaNova, serif;
+    background-color: black;
+}
+
+.footer {
+    font-family: ProximaNovaLight, serif;
+    color: white;
+    position:absolute;
+    font-size: 1.5vw;
+    font-weight: 500;
+    bottom:1%;
+}
+
+
+.tiles {
+    display: table;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.tile {
+    margin: 5px;
+    padding: 5px;
+    float: left;
+    width: 10%;
+    height: 7em;
+    background-color: grey;
+}
+
+.green {
+    margin: 5px;
+    padding: 5px;
+    float: left;
+    width: 10%;
+    height: 7em;
+    background-color: green;
+}
+
+.orange {
+    margin: 5px;
+    padding: 5px;
+    float: left;
+    width: 10%;
+    height: 7em;
+    background-color: orange;
+}
+
+.red {
+    margin: 5px;
+    padding: 5px;
+    float: left;
+    width: 10%;
+    height: 7em;
+    background-color: red;
+}

@@ -11,7 +11,7 @@ import (
 const version = "2020.4.2.17"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
-const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
+const config = "user=postgres password=Zps05..... dbname=version3 host=localhost port=5432 sslmode=disable"
 
 type program struct{}
 
@@ -50,12 +50,12 @@ func (p *program) run() {
 	timer := sse.New()
 	workplaces := sse.New()
 	overview := sse.New()
+	router.ServeFiles("/js/*filepath", http.Dir("js"))
+	router.ServeFiles("/css/*filepath", http.Dir("css"))
+	router.ServeFiles("/fonts/*filepath", http.Dir("fonts"))
+
 	router.GET("/display_1", display1)
-	router.GET("/display_2", display2)
-	router.GET("/css/darcula.css", darcula)
-	router.GET("/js/metro.min.js", metrojs)
-	router.GET("/css/metro-all.css", metrocss)
-	router.GET("/js/metro.min.js.map", metrominjsmap)
+
 	router.Handler("GET", "/time", timer)
 	router.Handler("GET", "/workplaces", workplaces)
 	router.Handler("GET", "/overview", overview)
@@ -69,8 +69,4 @@ func (p *program) run() {
 		os.Exit(-1)
 	}
 	logInfo("MAIN", serviceName+" ["+version+"] running")
-}
-
-func metrominjsmap(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.ServeFile(writer, request, "js/metro.min.js.map")
 }
