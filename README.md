@@ -18,7 +18,6 @@
 ## Description
 Go web service, that shows web pages on port 81
 * `/display_1` shows all workplaces with their statuses in small tiles
-* `/display_2` shows all workplaces with their statuses in wide tiles
 
 ## Installation Information
 Install under docker runtime using [this dockerfile image](https://github.com/petrjahoda/system/tree/master/latest) with this command: ```docker-compose up -d```
@@ -34,4 +33,4 @@ Use software only as a [part of a system](https://github.com/petrjahoda/system) 
 © 2020 Petr Jahoda
 
 Example
-![Display](display.png)
+![Display](screenshots/actual.png)

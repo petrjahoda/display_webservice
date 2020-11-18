@@ -2,6 +2,7 @@
     font-family: ProximaNova;
     src: url(../fonts/ProximaNova-Reg-webfont.woff2);
 }
+
 @font-face {
     font-family: ProximaNovaLight;
     src: url(../fonts/ProximaNova-Light-webfont.woff2);
@@ -15,10 +16,10 @@ html {
 .footer {
     font-family: ProximaNovaLight, serif;
     color: white;
-    position:absolute;
+    position: absolute;
     font-size: 1.5vw;
     font-weight: 500;
-    bottom:1%;
+    bottom: 1%;
 }
 
 
@@ -27,38 +28,41 @@ html {
     margin-left: 10px;
     margin-top: 20px;
 }
-.tile {
-    margin: 5px;
-    padding: 5px;
-    float: left;
-    width: 10%;
-    height: 7em;
-    background-color: grey;
-}
 
 .green {
+    color: white;
+    text-shadow: 0 0 10px black;
+    outline-color: black;
+    border-radius: 2px;
     margin: 5px;
-    padding: 5px;
+    padding: 20px 5px 5px 5px;
     float: left;
     width: 10%;
-    height: 7em;
+    height: 8em;
     background-color: green;
 }
 
 .orange {
+    color: white;
+    text-shadow: 0 0 10px black;
+    border-radius: 2px;
     margin: 5px;
-    padding: 5px;
+    padding: 20px 5px 5px 5px;
     float: left;
     width: 10%;
-    height: 7em;
+    height: 8em;
     background-color: orange;
 }
 
 .red {
+    color: white;
+    text-shadow: 0 0 10px black;
+    outline-color: black;
+    border-radius: 2px;
     margin: 5px;
-    padding: 5px;
+    padding: 20px 5px 5px 5px;
     float: left;
     width: 10%;
-    height: 7em;
+    height: 8em;
     background-color: red;
 }

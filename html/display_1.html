@@ -2,23 +2,24 @@
 <link rel="stylesheet" href="../css/system.css">
 <script src="../js/system.js" defer></script>
 
-<div class="tiles">
+<div class="tiles" style="text-align: center">
     {{range .LcdWorkplaces}}
-        <div id="{{.Name}}" class="tile">
-            {{.Name}}<br>{{.User}}<br>{{.Order}}<br>{{.Downtime}}
+        <div id="{{.Name}}" class={{.StateColor}}>
+            <b>{{.Name}}</b><br> {{.User}}<br>{{.Order}}<br>{{.Downtime}}<br><br><sub>{{.Duration}}</sub>
         </div>
     {{end}}
 </div>
 
 
 <div id="production"
-     style="color:green;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:30%;transform: translate(-50%, -50%);">
+     style="color:green;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:30%;transform: translate(-50%, -50%);">{{.ProductionPercent}}
 </div>
 <div id="downtime"
-     style="color:orange;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:50%;transform: translate(-50%, -50%);">
+     style="color:orange;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:50%;transform: translate(-50%, -50%);">{{.DowntimePercent}}
 </div>
 <div id="offline"
-     style="color:red;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:70%;transform: translate(-50%, -50%);"></div>
-<div id="time" class="footer" style="left:1%"></div>
+     style="color:red;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:70%;transform: translate(-50%, -50%);">{{.OfflinePercent}}
+</div>
+<div id="time" class="footer" style="left:1%">{{.Time}}</div>
 <div class="footer" style="right:1%">{{.Version}}</div>
 <div class="footer" style="left:50%;transform: translate(-50%)"> ©2020 Petr Jahoda</div>

@@ -17,6 +17,12 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 ## [2020.4.2.17] - 2020-11-17
 
 ### Changed
+- CSS formatting 
+- loading data on start
+
+## [2020.4.2.17] - 2020-11-17
+
+### Changed
 - updated all go libraries 
 - updated Dockerfile
 - updated create.sh

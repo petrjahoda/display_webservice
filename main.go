@@ -8,10 +8,10 @@ import (
 	"os"
 )
 
-const version = "2020.4.2.17"
+const version = "2020.4.2.18"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
-const config = "user=postgres password=Zps05..... dbname=version3 host=localhost port=5432 sslmode=disable"
+const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
 
 type program struct{}
 
