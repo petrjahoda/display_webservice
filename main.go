@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const version = "2020.4.2.18"
+const version = "2020.4.2.20"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=Zps05..... dbname=version3 host=database port=5432 sslmode=disable"
@@ -63,7 +63,7 @@ func (p *program) run() {
 	go streamTime(timer, timezone)
 	go streamWorkplaces(workplaces)
 	go streamOverview(overview)
-	err := http.ListenAndServe(":81", router)
+	err := http.ListenAndServe(":90", router)
 	if err != nil {
 		logError("MAIN", "Problem starting service: "+err.Error())
 		os.Exit(-1)

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="../css/system.css">
 <script src="../js/system.js" defer></script>
 
-<div class="tiles" style="text-align: center">
+<div class="tiles">
     {{range .LcdWorkplaces}}
         <div id="{{.Name}}" class={{.StateColor}}>
             <b>{{.Name}}</b><br> {{.User}}<br>{{.Order}}<br>{{.Downtime}}<br><br><sub>{{.Duration}}</sub>
