@@ -63,7 +63,7 @@ func (p *program) run() {
 	go streamTime(timer, timezone)
 	go streamWorkplaces(workplaces)
 	go streamOverview(overview)
-	err := http.ListenAndServe(":90", router)
+	err := http.ListenAndServe(":81", router)
 	if err != nil {
 		logError("MAIN", "Problem starting service: "+err.Error())
 		os.Exit(-1)
