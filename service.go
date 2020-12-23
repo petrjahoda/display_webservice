@@ -3,12 +3,10 @@ package main
 import (
 	"github.com/davidscholberg/go-durationfmt"
 	"github.com/goodsign/monday"
-	"github.com/julienschmidt/httprouter"
 	"github.com/julienschmidt/sse"
 	"github.com/petrjahoda/database"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"net/http"
 	"strconv"
 	"time"
 )
@@ -175,16 +173,4 @@ func streamTime(streamer *sse.Streamer, timezone string) {
 			time.Sleep(1 * time.Second)
 		}
 	}
-}
-
-func darcula(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.ServeFile(writer, request, "css/darcula.css")
-}
-
-func metrojs(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.ServeFile(writer, request, "js/metro.min.js")
-}
-
-func metrocss(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.ServeFile(writer, request, "css/metro-all.css")
 }
