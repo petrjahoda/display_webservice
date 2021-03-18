@@ -105,8 +105,6 @@ func streamWorkplaces(streamer *sse.Streamer) {
 	logInfo("SSE", "Streaming workplaces process started")
 	var workplaces []database.Workplace
 	for {
-		logInfo("SSE", "Streaming workplaces running")
-		timer := time.Now()
 		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 		workplaces = nil
 		if err != nil {
@@ -114,6 +112,9 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			time.Sleep(10 * time.Second)
 			continue
 		}
+		sqlDB, _ := db.DB()
+		logInfo("SSE", "Streaming workplaces running")
+		timer := time.Now()
 		db.Find(&workplaces)
 		logInfo("SSE", "Workplaces count: "+strconv.Itoa(len(workplaces)))
 		for _, workplace := range workplaces {
@@ -152,7 +153,7 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			}
 			streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+userName+"<br>"+order.Name+"<br>"+downtime.Name+"<br><br><sub>"+duration+"</sub>;"+color)
 		}
-		sqlDB, _ := db.DB()
+
 		sqlDB.Close()
 		logInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
