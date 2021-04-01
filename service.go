@@ -52,10 +52,12 @@ func streamOverview(streamer *sse.Streamer) {
 		logInfo("SSE", "Streaming overview started")
 		timer := time.Now()
 		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+		sqlDB, _ := db.DB()
 		workplaces = nil
 		if err != nil {
 			logError("SSE", "Problem opening database: "+err.Error())
 			time.Sleep(10 * time.Second)
+			sqlDB.Close()
 			continue
 		}
 		db.Find(&workplaces)
@@ -94,7 +96,6 @@ func streamOverview(streamer *sse.Streamer) {
 		}
 		logInfo("SSE", "Production: "+strconv.Itoa(productionPercent)+", Downtime: "+strconv.Itoa(downtimePercent)+", Offline: "+strconv.Itoa(offlinePercent))
 		streamer.SendString("", "overview", "Production "+strconv.Itoa(productionPercent)+"%;Downtime "+strconv.Itoa(downtimePercent)+"%;Poweroff "+strconv.Itoa(offlinePercent)+"%")
-		sqlDB, _ := db.DB()
 		sqlDB.Close()
 		logInfo("SSE", "Streaming overview ended in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
@@ -106,13 +107,14 @@ func streamWorkplaces(streamer *sse.Streamer) {
 	var workplaces []database.Workplace
 	for {
 		db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+		sqlDB, _ := db.DB()
 		workplaces = nil
 		if err != nil {
 			logError("SSE", "Problem opening database: "+err.Error())
+			sqlDB.Close()
 			time.Sleep(10 * time.Second)
 			continue
 		}
-		sqlDB, _ := db.DB()
 		logInfo("SSE", "Streaming workplaces running")
 		timer := time.Now()
 		db.Find(&workplaces)
@@ -153,7 +155,6 @@ func streamWorkplaces(streamer *sse.Streamer) {
 			}
 			streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+userName+"<br>"+order.Name+"<br>"+downtime.Name+"<br><br><sub>"+duration+"</sub>;"+color)
 		}
-
 		sqlDB.Close()
 		logInfo("SSE", "Workplaces streamed in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
