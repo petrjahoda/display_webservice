@@ -4,7 +4,7 @@
 
 <div class="tiles">
     {{range .LcdWorkplaces}}
-        <div id="{{.Name}}" class={{.StateColor}}>
+        <div id="{{.Name}}" class={{.StateColor}} style="{{.StateColorStyle}}">
             <b>{{.Name}}</b><br> {{.User}}<br>{{.Order}}<br>{{.Downtime}}<br><br><sub>{{.Duration}}</sub>
         </div>
     {{end}}
@@ -12,13 +12,13 @@
 
 
 <div id="production"
-     style="color:green;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:30%;transform: translate(-50%, -50%);">{{.ProductionPercent}}
+     style="color:{{.ProductionColor}};position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:30%;transform: translate(-50%, -50%);">{{.ProductionPercent}}
 </div>
 <div id="downtime"
-     style="color:orange;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:50%;transform: translate(-50%, -50%);">{{.DowntimePercent}}
+     style="color:{{.DowntimeColor}};position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:50%;transform: translate(-50%, -50%);">{{.DowntimePercent}}
 </div>
 <div id="offline"
-     style="color:red;position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:70%;transform: translate(-50%, -50%);">{{.OfflinePercent}}
+     style="color:{{.PowerOffColor}};position:absolute;font-size:2.5vw;font-weight: 500;bottom:2.5%;left:70%;transform: translate(-50%, -50%);">{{.OfflinePercent}}
 </div>
 <div id="time" class="footer" style="left:1%">{{.Time}}</div>
 <div class="footer" style="right:1%">{{.Version}}</div>

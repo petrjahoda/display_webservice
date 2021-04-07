@@ -13,10 +13,7 @@ overview.addEventListener('overview', (e) => {
 }, false);
 const workplaces = new EventSource('/workplaces');
 workplaces.addEventListener('workplaces', (e) => {
-    console.log(e.data)
     const overviewData = e.data.split(";");
-    console.log(overviewData[1])
-    console.log(overviewData[2])
     document.getElementById(overviewData[0]).innerHTML = overviewData[1];
-    document.getElementById(overviewData[0]).className = overviewData[2]
+    document.getElementById(overviewData[0]).style.background = overviewData[2]
 }, false);
