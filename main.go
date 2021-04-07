@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const version = "2021.2.1.1"
+const version = "2021.2.1.7"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=database port=5432 sslmode=disable"
