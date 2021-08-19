@@ -6,9 +6,11 @@ import (
 	"github.com/kardianos/service"
 	"net/http"
 	"os"
+	"strconv"
+	"time"
 )
 
-const version = "2021.2.2.13"
+const version = "2021.3.2.19"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=database port=5432 sslmode=disable application_name=display_webservice"
@@ -17,6 +19,7 @@ type program struct{}
 
 func main() {
 	logInfo("MAIN", serviceName+" ["+version+"] starting...")
+	logInfo("MAIN", "© "+strconv.Itoa(time.Now().Year())+" Petr Jahoda")
 	serviceConfig := &service.Config{
 		Name:        serviceName,
 		DisplayName: serviceName,
