@@ -65,10 +65,8 @@ func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 		order := database.Order{}
 		if workplaceHasOpenOrder {
 			db.Where("id = ?", orderRecord.OrderID).Find(&order)
-			userRecord := database.UserRecord{}
-			db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
 			user := database.User{}
-			db.Where("id = ?", userRecord.UserID).Find(&user)
+			db.Where("id = ?", orderRecord.UserId.Int32).Find(&user)
 			userName = user.FirstName + " " + user.SecondName
 		}
 		color := "green"
