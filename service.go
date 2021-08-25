@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/davidscholberg/go-durationfmt"
 	"github.com/goodsign/monday"
 	"github.com/julienschmidt/sse"
 	"github.com/petrjahoda/database"
@@ -107,20 +106,20 @@ func streamWorkplaces(streamer *sse.Streamer) {
 		location := downloadActualLocation()
 		loc, _ := time.LoadLocation(location)
 		workplaces := downloadActualWorkplaces()
-		cachedDowntimeRecords := downloadDowntimeRecords()
-		cachedOrderRecords := downloadOrderRecords()
-		cachedUserRecords := downloadUserRecords()
-		cachedStateRecords := downloadStateRecords()
-		cachedDowntimes := downloadDowntimes()
-		cachedOrders := downloadOrders()
-		cachedUsers := downloadUsers()
-		cachedStates := downloadStates()
-		for _, workplace := range workplaces {
-			workplaceDowntimeRecord := cachedDowntimeRecords[int(workplace.ID)]
-			workplaceOrderRecord := cachedOrderRecords[int(workplace.ID)]
-			workplaceUserRecord := cachedUserRecords[int(workplace.ID)]
-			workplaceStateRecord := cachedStateRecords[int(workplace.ID)]
-			streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+cachedUsers[workplaceUserRecord.UserID].FirstName+" "+cachedUsers[workplaceUserRecord.UserID].SecondName+"<br>"+cachedOrders[workplaceOrderRecord.OrderID].Name+"<br>"+cachedDowntimes[workplaceDowntimeRecord.DowntimeID].Name+"<br><br><sub>"+time.Now().In(loc).Sub(workplaceStateRecord.DateTimeStart.In(loc)).Round(1*time.Second).String()+"</sub>;"+cachedStates[workplaceStateRecord.StateID].Color)
+		if len(workplaces) > 0 {
+			cachedDowntimeRecords := downloadDowntimeRecords()
+			cachedOrderRecords := downloadOrderRecords()
+			cachedStateRecords := downloadStateRecords()
+			cachedDowntimes := downloadDowntimes()
+			cachedOrders := downloadOrders()
+			cachedUsers := downloadUsers()
+			cachedStates := downloadStates()
+			for _, workplace := range workplaces {
+				workplaceDowntimeRecord := cachedDowntimeRecords[int(workplace.ID)]
+				workplaceOrderRecord := cachedOrderRecords[int(workplace.ID)]
+				workplaceStateRecord := cachedStateRecords[int(workplace.ID)]
+				streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].FirstName+" "+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].SecondName+"<br>"+cachedOrders[workplaceOrderRecord.OrderID].Name+"<br>"+cachedDowntimes[workplaceDowntimeRecord.DowntimeID].Name+"<br><br><sub>"+time.Now().In(loc).Sub(workplaceStateRecord.DateTimeStart.In(loc)).Round(1*time.Second).String()+"</sub>;"+cachedStates[workplaceStateRecord.StateID].Color)
+			}
 		}
 		logInfo("SSE", "Streaming workplaces ended in "+time.Since(timer).String())
 		time.Sleep(10 * time.Second)
@@ -142,23 +141,6 @@ func downloadStateRecords() map[int]database.StateRecord {
 		cachedStateRecords[stateRecord.WorkplaceID] = stateRecord
 	}
 	return cachedStateRecords
-}
-
-func downloadUserRecords() map[int]database.UserRecord {
-	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
-	sqlDB, _ := db.DB()
-	defer sqlDB.Close()
-	if err != nil {
-		logError("SSE", "Problem opening database: "+err.Error())
-		return nil
-	}
-	var userRecords []database.UserRecord
-	db.Where("date_time_end is null").Find(&userRecords)
-	cachedUserRecords := make(map[int]database.UserRecord)
-	for _, userRecord := range userRecords {
-		cachedUserRecords[userRecord.WorkplaceID] = userRecord
-	}
-	return cachedUserRecords
 }
 
 func downloadOrderRecords() map[int]database.OrderRecord {
@@ -261,50 +243,6 @@ func downloadDowntimeRecords() map[int]database.DowntimeRecord {
 		cachedDowntimeRecords[downtimeRecord.WorkplaceID] = downtimeRecord
 	}
 	return cachedDowntimeRecords
-}
-
-func downloadWorkplaceData(workplace database.Workplace) (database.Downtime, string, database.Order, string, string) {
-	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
-	sqlDB, _ := db.DB()
-	defer sqlDB.Close()
-	if err != nil {
-		logError("SSE", "Problem opening database: "+err.Error())
-		return database.Downtime{}, "", database.Order{}, "", ""
-	}
-	stateRecord := database.StateRecord{}
-	db.Where("workplace_id = ?", workplace.ID).Last(&stateRecord)
-	orderRecord := database.OrderRecord{}
-	db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&orderRecord)
-	workplaceHasOpenOrder := orderRecord.ID > 0
-	downtimeRecord := database.DowntimeRecord{}
-	db.Where("workplace_id = ?", workplace.ID).Where("date_time_end is null").Last(&downtimeRecord)
-	downtime := database.Downtime{}
-	db.Where("id = ?", downtimeRecord.DowntimeID).Find(&downtime)
-	userName := ""
-	order := database.Order{}
-	if workplaceHasOpenOrder {
-		db.Where("id = ?", orderRecord.OrderID).Find(&order)
-		userRecord := database.UserRecord{}
-		db.Where("order_record_id = ?", orderRecord.ID).Find(&userRecord)
-		user := database.User{}
-		db.Where("id = ?", userRecord.UserID).Find(&user)
-		userName = user.FirstName + " " + user.SecondName
-	}
-	color := "green"
-	switch stateRecord.StateID {
-	case 1:
-		color = "green"
-	case 2:
-		color = "orange"
-	case 3:
-		color = "red"
-	}
-	logInfo(workplace.Name, "Workplace color: "+color+", order: "+order.Name+", downtime: "+downtime.Name+", user: "+userName)
-	duration, err := durationfmt.Format(time.Now().Sub(stateRecord.DateTimeStart), "%dd %hh %mm")
-	if err != nil {
-		logError(workplace.Name, "Problem parsing datetime: "+err.Error())
-	}
-	return downtime, userName, order, color, duration
 }
 
 func downloadActualLocation() string {

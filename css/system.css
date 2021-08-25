@@ -1,11 +1,15 @@
 @font-face {
     font-family: ProximaNova;
-    src: url(../fonts/ProximaNova-Reg-webfont.woff2);
+    src: url(../fonts/Milliard_Light.otf);
 }
 
-@font-face {
-    font-family: ProximaNovaLight;
-    src: url(../fonts/ProximaNova-Light-webfont.woff2);
+@page {
+    size: 1920px 1080px;
+    margin: 0;
+}
+
+body {
+    font-family: ProximaNova, serif;
 }
 
 html {
@@ -14,7 +18,7 @@ html {
 }
 
 .footer {
-    font-family: ProximaNovaLight, serif;
+    font-family: ProximaNova, serif;
     color: white;
     position: absolute;
     font-size: 1.5em;

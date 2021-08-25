@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const version = "2021.3.2.19"
+const version = "2021.3.2.25"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=database port=5432 sslmode=disable application_name=display_webservice"

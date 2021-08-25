@@ -7,7 +7,7 @@ require (
 	github.com/TwinProduction/go-color v1.0.0
 	github.com/cockroachdb/apd v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3
+	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/goodsign/monday v1.0.0
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
@@ -35,7 +35,7 @@ require (
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
-	golang.org/x/sys v0.0.0-20210819072135-bce67f096156 // indirect
+	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect

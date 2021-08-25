@@ -14,6 +14,14 @@ adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 * ```Fixed``` for any bug fixes.
 * ```Security``` in case of vulnerabilities.
 
+## [2021.3.2.25] - 2021-08-25
+
+### Changed
+
+- font to Milliard
+### Added
+- css settings for @page
+
 ## [2021.3.2.19] - 2021-08-19
 
 ### Changed
