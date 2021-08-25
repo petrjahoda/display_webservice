@@ -72,7 +72,7 @@ func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) 
 		color := "green"
 		colorStyle := "background: " + state.Color
 
-		duration := time.Now().In(loc).Sub(stateRecord.DateTimeStart.In(loc)).Round(1 * time.Second).String()
+		duration := time.Now().In(loc).Sub(stateRecord.DateTimeStart.In(loc)).Round(1 * time.Minute).String()
 		if err != nil {
 			logError(workplace.Name, "Problem parsing datetime: "+err.Error())
 		}

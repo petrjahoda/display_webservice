@@ -118,7 +118,7 @@ func streamWorkplaces(streamer *sse.Streamer) {
 				workplaceDowntimeRecord := cachedDowntimeRecords[int(workplace.ID)]
 				workplaceOrderRecord := cachedOrderRecords[int(workplace.ID)]
 				workplaceStateRecord := cachedStateRecords[int(workplace.ID)]
-				streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].FirstName+" "+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].SecondName+"<br>"+cachedOrders[workplaceOrderRecord.OrderID].Name+"<br>"+cachedDowntimes[workplaceDowntimeRecord.DowntimeID].Name+"<br><br><sub>"+time.Now().In(loc).Sub(workplaceStateRecord.DateTimeStart.In(loc)).Round(1*time.Second).String()+"</sub>;"+cachedStates[workplaceStateRecord.StateID].Color)
+				streamer.SendString("", "workplaces", workplace.Name+";<b>"+workplace.Name+"</b><br>"+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].FirstName+" "+cachedUsers[int(workplaceOrderRecord.UserId.Int32)].SecondName+"<br>"+cachedOrders[workplaceOrderRecord.OrderID].Name+"<br>"+cachedDowntimes[workplaceDowntimeRecord.DowntimeID].Name+"<br><br><sub>"+time.Now().In(loc).Sub(workplaceStateRecord.DateTimeStart.In(loc)).Round(1*time.Minute).String()+"</sub>;"+cachedStates[workplaceStateRecord.StateID].Color)
 			}
 		}
 		logInfo("SSE", "Streaming workplaces ended in "+time.Since(timer).String())
