@@ -33,4 +33,4 @@ Use software only as a [part of a system](https://github.com/petrjahoda/system) 
 © 2020 Petr Jahoda
 
 Example
-![Display](screenshots/Screenshot%202021-08-26%20at%2010.45.25.png)
+![Display](screenshots/Screenshot%202021-08-26%20at%2010.49.28.png)
