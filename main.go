@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-const version = "2021.4.1.4"
+const version = "2021.4.1.28"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=database port=5432 sslmode=disable application_name=display_webservice"
@@ -54,12 +54,14 @@ func (p *program) Stop(service.Service) error {
 
 func (p *program) run() {
 	programIsActive := false
+	updateProgramVersion()
 	for !programIsActive {
 		programIsActive = checkActivation(programIsActive)
-		logInfo("MAIN", serviceName+": licence is not valid")
+		if !programIsActive {
+			logInfo("MAIN", serviceName+": licence is not valid")
+		}
 		time.Sleep(10 * time.Second)
 	}
-	updateProgramVersion()
 	router := httprouter.New()
 	timer := sse.New()
 	workplaces := sse.New()
