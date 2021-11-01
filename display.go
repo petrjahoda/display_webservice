@@ -37,7 +37,7 @@ type LcdWorkplace struct {
 func display1(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	logInfo("HTML", "Display 1 process started")
 	timer := time.Now()
-	tmpl := template.Must(template.ParseFiles("html/display_1.html"))
+	tmpl := template.Must(template.ParseFiles("html/display_1.gohtml"))
 	var workplaces []database.Workplace
 	lcdWorkplaces := LcdWorkplaces{}
 	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
