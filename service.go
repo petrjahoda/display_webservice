@@ -85,6 +85,7 @@ func downloadDataForStreaming() (int, int, int) {
 	downtime := 0
 	offline := 0
 	var stateRecords []database.StateRecord
+	// select * from (select state_records.id as id, states.name as state, workplaces.name as workplace from state_records join workplaces on state_records.workplace_id=workplaces.id join states on state_records.state_id=states.id) as results where id in (select distinct max(id) as id from state_records group by workplace_id)
 	db.Raw("select * from state_records where id in (select distinct max(id) as id from state_records group by workplace_id)").Find(&stateRecords)
 	for _, record := range stateRecords {
 		switch record.StateID {

@@ -2,6 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
+	"os"
+	"strconv"
+	"time"
+
 	"github.com/hyperboloide/lk"
 	"github.com/julienschmidt/httprouter"
 	"github.com/julienschmidt/sse"
@@ -9,16 +14,12 @@ import (
 	"github.com/petrjahoda/database"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"net/http"
-	"os"
-	"strconv"
-	"time"
 )
 
 const version = "2021.4.2.1"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
-const config = "user=postgres password=pj79.. dbname=system host=database port=5432 sslmode=disable application_name=display_webservice"
+const config = "user=postgres password=pj79.. dbname=system host=localhost port=5432 sslmode=disable application_name=display_webservice"
 
 type program struct{}
 
