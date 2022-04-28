@@ -16,7 +16,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const version = "2021.4.2.1"
+const version = "2022.2.1.28"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=localhost port=5432 sslmode=disable application_name=display_webservice"
