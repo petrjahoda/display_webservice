@@ -11,5 +11,5 @@ upx --best --lzma linux/arm64/"$name"
 
 docker rmi -f petrjahoda/"$name":latest
 docker buildx build -t petrjahoda/"$name":latest --platform=linux/arm64,linux/amd64 . --push
-docker rmi -f petrjahoda/"$name":2022.2.1
-docker buildx build -t petrjahoda/"$name":2022.2.1 --platform=linux/arm64,linux/amd64 . --push
+docker rmi -f petrjahoda/"$name":2022.2.2
+docker buildx build -t petrjahoda/"$name":2022.2.2 --platform=linux/arm64,linux/amd64 . --push

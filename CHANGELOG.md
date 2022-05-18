@@ -14,6 +14,12 @@ to [Semantic Versioning](http://semver.org/spec/v2.0.0.html) rules.
 * ```Fixed``` for any bug fixes.
 * ```Security``` in case of vulnerabilities.
 
+## [2022.2.2.18] - 2022-05-18
+
+### Changed
+
+- updated checkDatabaseConnection()
+
 ## [2022.2.1.28] - 2022-04-28
 
 ### Changed

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"gorm.io/gorm/logger"
 	"net/http"
 	"os"
 	"strconv"
@@ -16,7 +17,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const version = "2022.2.1.28"
+const version = "2022.2.2.18"
 const serviceName = "Display WebService"
 const serviceDescription = "Display webpages, for use with big televisions and displays"
 const config = "user=postgres password=pj79.. dbname=system host=localhost port=5432 sslmode=disable application_name=display_webservice"
@@ -54,6 +55,7 @@ func (p *program) Stop(service.Service) error {
 }
 
 func (p *program) run() {
+	checkDatabaseConnection()
 	programIsActive := false
 	updateProgramVersion()
 	for !programIsActive {
@@ -128,4 +130,27 @@ func checkActivation(programIsActive bool) bool {
 		return true
 	}
 	return false
+}
+
+func checkDatabaseConnection() {
+	databaseConnected := false
+	for !databaseConnected {
+		db, err := gorm.Open(postgres.Open(config), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
+		sqlDB, _ := db.DB()
+		if err != nil {
+			logError("SYSTEM", "Database not connected: "+err.Error())
+			time.Sleep(1 * time.Second)
+		} else {
+			var checkUser database.User
+			db.Where("email = ?", "admin@admin.com").Find(&checkUser)
+			if checkUser.ID == 0 {
+				logError("SYSTEM", "Database not initialized")
+				sqlDB.Close()
+				time.Sleep(1 * time.Second)
+			} else {
+				sqlDB.Close()
+				databaseConnected = true
+			}
+		}
+	}
 }

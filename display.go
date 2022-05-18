@@ -13,7 +13,6 @@ import (
 )
 
 type LcdWorkplaces struct {
-	LcdWorkplaces     []LcdWorkplace
 	ProductionPercent string
 	DowntimePercent   string
 	OfflinePercent    string
@@ -22,6 +21,7 @@ type LcdWorkplaces struct {
 	PowerOffColor     string
 	Time              string
 	Version           string
+	LcdWorkplaces     []LcdWorkplace
 }
 
 type LcdWorkplace struct {
